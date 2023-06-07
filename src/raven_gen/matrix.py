@@ -472,7 +472,8 @@ class Matrix:
                 band_center = i * panel_size + int(0.5 * panel_size)
                 img_grid[band_center - neg_offset:band_center +
                          pos_offset, :] = 0.
-        return Image.fromarray(img_grid)
+        #return Image.fromarray(img_grid)
+        return img_grid
 
     def save(self,
              path,
@@ -486,7 +487,8 @@ class Matrix:
         assert (image_size != 0 and background_color <= 255)
         img = self.generate_matrix(self.answer, background_color, image_size,
                                    line_thickness, shape_border_thickness)
-        img.save(os.path.join(path, puzzle_name + "_answer.png"))
+        np.savetxt(os.path.join(path, puzzle_name + "_answerY.png"), img)
+        #img.save(os.path.join(path, puzzle_name + "_answer.png"))
         for i, alternative in enumerate(self.alternatives):
             img = self.generate_matrix(alternative, background_color,
                                        image_size, line_thickness,
