@@ -475,10 +475,10 @@ class Matrix:
         #return Image.fromarray(img_grid)
         return img_grid
 
-    def save(self,
-             path,
-             puzzle_name,
-             background_color=255,
+    def save(self,  # so self is the object we assigned (i.e., rpm)
+             path,  # argq
+             puzzle_name,  # arg2
+             background_color=255,  # arg4 with defaults... etc
              image_size=480,
              line_thickness=3,
              shape_border_thickness=2):
@@ -487,10 +487,15 @@ class Matrix:
         assert (image_size != 0 and background_color <= 255)
         img = self.generate_matrix(self.answer, background_color, image_size,
                                    line_thickness, shape_border_thickness)
-        np.savetxt(os.path.join(path, puzzle_name + "_answerY.png"), img)
-        #img.save(os.path.join(path, puzzle_name + "_answer.png"))
+
+        self.ans_ImageNum = img # here I save the img to the object (self) in this function
+
+        img = Image.fromarray(img)  # making it an image since I took it away form the return of generate_matrix
+        # np.savetxt(os.path.join(path, puzzle_name + "_answerY.png"), img)
+        img.save(os.path.join(path, puzzle_name + "_answer.png"))
         for i, alternative in enumerate(self.alternatives):
             img = self.generate_matrix(alternative, background_color,
                                        image_size, line_thickness,
                                        shape_border_thickness)
+            img = Image.fromarray(img)  # making it an image
             img.save(os.path.join(path, puzzle_name + f"_alternative_{i}.png"))
