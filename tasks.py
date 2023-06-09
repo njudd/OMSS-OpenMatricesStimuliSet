@@ -21,6 +21,7 @@ plt.show()
 # @Ann
 # can you identify the possible vector to target white values & make them all red?
 # you'll need to replicate everything into BGR values first
+# note you might wanna go back to no background color for this
 
 
 
