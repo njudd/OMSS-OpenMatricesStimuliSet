@@ -475,6 +475,21 @@ class Matrix:
         #return Image.fromarray(img_grid)
         return img_grid
 
+
+    def gimme(self,
+              background_color=255,  # arg4 with defaults... etc
+              image_size=480,
+              line_thickness=3,
+              shape_border_thickness=2
+              ):
+        image_size, background_color, line_thickness, shape_border_thickness = \
+            int(abs(image_size)), int(abs(background_color)), int(abs(line_thickness)), int(abs(shape_border_thickness))
+        assert (image_size != 0 and background_color <= 255)
+        self.ans_img = self.generate_matrix(self.answer, background_color, image_size,
+                                   line_thickness, shape_border_thickness)
+
+
+
     def save(self,  # so self is the object we assigned (i.e., rpm)
              path,  # argq
              puzzle_name,  # arg2
