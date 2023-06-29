@@ -487,6 +487,7 @@ class Matrix:
         assert (image_size != 0 and background_color <= 255)
         self.ans_img = self.generate_matrix(self.answer, background_color, image_size,
                                    line_thickness, shape_border_thickness)
+        self.ans_img = np.repeat(self.ans_img[:, :, np.newaxis], 3, axis=2)
 
 
 
