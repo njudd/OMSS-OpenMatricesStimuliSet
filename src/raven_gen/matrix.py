@@ -524,9 +524,36 @@ class Matrix:
             change_color = (whole_img == grey_color).all(axis=2)
             whole_img[change_color] = color_color
 
-        img = Image.fromarray(whole_img)  # making it an image since I took it away form the return of generate_matrix
+        corner_rightbottom = int((image_size / 3) * 2 + 5)  # assuming a 3by3 grid, adding 5 to get rid of lines
+        ans = whole_img[corner_rightbottom:, corner_rightbottom:]  # this gets you to the bottom right stimuli on a 3x3 grid
+        ans = Image.fromarray(ans)
+        ans.save(os.path.join(path, puzzle_name + "_answer.png"))
+
+        # goals to make a stim that has the lower corner as white
+        # you subset the lower right corner of the stimuli object and than fill with white
+        resolution = int((image_size / 3) - 5)  # I think times 2 because of the dimensions; int just incase lol
+        pixels = resolution**2 # the resolution to the power of two; times 3 for colored pizels
+        stimulus = whole_img
+
+        # here doesn't work because it is the wrong format;
+        # you can't fix it before color (well you can but that you need to redefine & color both images
+        # if you can np.repeat tuples of zeros than it will work
+        #
+
+        # so the image is 100 in resolution (100by100)
+        #ct = [1, ] * 30000
+        #ct = np.reshape(ct, (100, 100, 3))
+
+        #stimulus[corner_rightbottom:, corner_rightbottom:] = [[0, 0, 0],] * M  # where M is the dimension of subseted space (ideally take image size to define)
+        stimulus[corner_rightbottom:, corner_rightbottom:] = np.reshape([255]*pixels*3, [int(np.sqrt(pixels)), int(np.sqrt(pixels)), 3])
+        # so first subseting to the corner, than I make 0 values of the number of pixels times 3; it needs to be in the right format
+        # to make it in the right format I use np.reshape; since it is a sqaure we are filling 100 pixels is 10 by 10
+        # that is cols and rows are sqrt the number of pizels; than it needs a 3rd dim for color (BGR)
+
+        stimulus = Image.fromarray(stimulus)  # making it an image since I took it away form the return of generate_matrix
         # np.savetxt(os.path.join(path, puzzle_name + "_answerY.png"), img)
-        img.save(os.path.join(path, puzzle_name + "_answer.png"))
+        stimulus.save(os.path.join(path, puzzle_name + "_stimulus.png"))
+
         for i, alternative in enumerate(self.alternatives):
             img = self.generate_matrix(alternative, background_color,
                                        image_size, line_thickness,
@@ -536,6 +563,6 @@ class Matrix:
             for grey_color, color_color in colors.items():
                 change_color = (img == grey_color).all(axis=2)
                 img[change_color] = color_color
-
+            img = img[corner_rightbottom:, corner_rightbottom:]
             img = Image.fromarray(img)  # making it an image
             img.save(os.path.join(path, puzzle_name + f"_alternative_{i}.png"))
