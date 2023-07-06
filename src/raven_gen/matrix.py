@@ -487,7 +487,7 @@ class Matrix:
         assert (image_size != 0 and background_color <= 255)
         self.ans_img = self.generate_matrix(self.answer, background_color, image_size,
                                    line_thickness, shape_border_thickness)
-        self.ans_img = np.repeat(self.ans_img[:, :, np.newaxis], 3, axis=2)
+        # self.ans_img = np.repeat(self.ans_img[:, :, np.newaxis], 3, axis=2)
 
 
 
@@ -495,23 +495,47 @@ class Matrix:
              path,  # argq
              puzzle_name,  # arg2
              background_color=255,  # arg4 with defaults... etc
-             image_size=480,
+             image_size=750,
              line_thickness=3,
              shape_border_thickness=2):
         image_size, background_color, line_thickness, shape_border_thickness = \
             int(abs(image_size)), int(abs(background_color)), int(abs(line_thickness)), int(abs(shape_border_thickness))
         assert (image_size != 0 and background_color <= 255)
-        img = self.generate_matrix(self.answer, background_color, image_size,
+
+        colors = {
+            (224, 224, 224): [255, 235, 59],
+            (140, 140, 140): [186, 104, 200],
+            (196, 196, 196): [251, 140, 0],
+            (168, 168, 168): [211, 47, 47],
+            (112, 112, 112): [30, 136, 229],
+            (84, 84, 84): [0, 188, 212],
+            (56, 56, 56): [56, 142, 60],
+            (28, 28, 28): [46, 204, 113]
+        }
+
+        self.ans_img = self.generate_matrix(self.answer, background_color, image_size,
                                    line_thickness, shape_border_thickness)
+        self.ans_img = np.repeat(self.ans_img[:, :, np.newaxis], 3, axis=2)
 
-        self.ans_ImageNum = img # here I save the img to the object (self) in this function
+        whole_img = self.ans_img # we don't need to self assign it; it can just be a var here
+            # for the alts I don't use .self
 
-        img = Image.fromarray(img)  # making it an image since I took it away form the return of generate_matrix
+        for grey_color, color_color in colors.items():
+            change_color = (whole_img == grey_color).all(axis=2)
+            whole_img[change_color] = color_color
+
+        img = Image.fromarray(whole_img)  # making it an image since I took it away form the return of generate_matrix
         # np.savetxt(os.path.join(path, puzzle_name + "_answerY.png"), img)
         img.save(os.path.join(path, puzzle_name + "_answer.png"))
         for i, alternative in enumerate(self.alternatives):
             img = self.generate_matrix(alternative, background_color,
                                        image_size, line_thickness,
                                        shape_border_thickness)
+            img = np.repeat(img[:, :, np.newaxis], 3, axis=2)
+            # I think color is already assigned.
+            for grey_color, color_color in colors.items():
+                change_color = (img == grey_color).all(axis=2)
+                img[change_color] = color_color
+
             img = Image.fromarray(img)  # making it an image
             img.save(os.path.join(path, puzzle_name + f"_alternative_{i}.png"))
