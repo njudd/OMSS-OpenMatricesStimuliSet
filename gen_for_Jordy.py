@@ -32,81 +32,91 @@ raven_gen.attribute.SIZE_MAX = 3 # need to tell it the length of the new vector 
 ruleset_1 = Ruleset(size_rules=[RuleType.CONSTANT],
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.CONSTANT],
-                  number_rules=[RuleType.DISTRIBUTE_THREE], # if you only do single stimulis this isn't an issue
+                  number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
                   position_rules=[RuleType.CONSTANT])
 
-# size distribute 3
-ruleset_2 = Ruleset(size_rules=[RuleType.DISTRIBUTE_THREE],
+ruleset_2 = Ruleset(size_rules=[RuleType.PROGRESSION],
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.CONSTANT],
-                  number_rules=[RuleType.DISTRIBUTE_THREE], # if you only do single stimulis this isn't an issue
+                  number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
                   position_rules=[RuleType.CONSTANT])
 
-# size ARITHMETIC
-ruleset_3 = Ruleset(size_rules=[RuleType.ARITHMETIC],
+ruleset_3 = Ruleset(size_rules=[RuleType.DISTRIBUTE_THREE],
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.CONSTANT],
-                  number_rules=[RuleType.DISTRIBUTE_THREE], # if you only do single stimulis this isn't an issue
+                  number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
                   position_rules=[RuleType.CONSTANT])
-# size PROGRESSION
-ruleset_4 = Ruleset(size_rules=[RuleType.PROGRESSION],
+
+ruleset_4 = Ruleset(size_rules=[RuleType.ARITHMETIC],
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.CONSTANT],
-                  number_rules=[RuleType.DISTRIBUTE_THREE], # if you only do single stimulis this isn't an issue
+                  number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
                   position_rules=[RuleType.CONSTANT])
 
-# size distribute 3 plus color distribute 3
-ruleset_5 = Ruleset(size_rules=[RuleType.DISTRIBUTE_THREE],
-                  shape_rules=[RuleType.CONSTANT],
-                  color_rules=[RuleType.DISTRIBUTE_THREE],
-                  number_rules=[RuleType.DISTRIBUTE_THREE], # if you only do single stimulis this isn't an issue
+ruleset_5 = Ruleset(size_rules=[RuleType.CONSTANT],
+                  shape_rules=[RuleType.PROGRESSION],
+                  color_rules=[RuleType.CONSTANT],
+                  number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
                   position_rules=[RuleType.CONSTANT])
 
-# color distribute 3 plus size progression
 ruleset_6 = Ruleset(size_rules=[RuleType.CONSTANT],
-                  shape_rules=[RuleType.CONSTANT],
-                  color_rules=[RuleType.DISTRIBUTE_THREE],
-                  number_rules=[RuleType.DISTRIBUTE_THREE], # if you only do single stimulis this isn't an issue
-                  position_rules=[RuleType.CONSTANT])
-# color PROGRESSION, position CONSTANT
-ruleset_7 = Ruleset(size_rules=[RuleType.DISTRIBUTE_THREE],
                   shape_rules=[RuleType.DISTRIBUTE_THREE],
                   color_rules=[RuleType.CONSTANT],
-                  number_rules=[RuleType.DISTRIBUTE_THREE], # if you only do single stimulis this isn't an issue
-                  position_rules=[RuleType.CONSTANT])
-#shape progression, position CONSTANT
-ruleset_8 = Ruleset(size_rules=[RuleType.DISTRIBUTE_THREE],
-                  shape_rules=[RuleType.PROGRESSION],
-                  color_rules=[RuleType.DISTRIBUTE_THREE],
-                  number_rules=[RuleType.DISTRIBUTE_THREE], # if you only do single stimulis this isn't an issue
-                  position_rules=[RuleType.CONSTANT])
-# size, shape and color as PROGRESSION
-ruleset_9 = Ruleset(size_rules=[RuleType.PROGRESSION],
-                  shape_rules=[RuleType.PROGRESSION],
-                  color_rules=[RuleType.PROGRESSION],
-                  number_rules=[RuleType.DISTRIBUTE_THREE], # if you only do single stimulis this isn't an issue
-                  position_rules=[RuleType.CONSTANT])
-# size & shape as ARITHMETIC while position progression
-ruleset_10 = Ruleset(size_rules=[RuleType.ARITHMETIC],
-                  shape_rules=[RuleType.CONSTANT],
-                  color_rules=[RuleType.ARITHMETIC],
-                  number_rules=[RuleType.DISTRIBUTE_THREE], # if you only do single stimulis this isn't an issue
+                  number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
                   position_rules=[RuleType.CONSTANT])
 
-#
-rules = [ruleset_1, ruleset_2, ruleset_3, ruleset_4, ruleset_5, ruleset_6, ruleset_7, ruleset_8, ruleset_9, ruleset_10]
+ruleset_7 = Ruleset(size_rules=[RuleType.CONSTANT],
+                  shape_rules=[RuleType.ARITHMETIC],
+                  color_rules=[RuleType.CONSTANT],
+                  number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
+                  position_rules=[RuleType.CONSTANT])
+
+ruleset_8 = Ruleset(size_rules=[RuleType.CONSTANT],
+                  shape_rules=[RuleType.CONSTANT],
+                  color_rules=[RuleType.PROGRESSION],
+                  number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
+                  position_rules=[RuleType.CONSTANT])
+
+ruleset_9 = Ruleset(size_rules=[RuleType.CONSTANT],
+                  shape_rules=[RuleType.CONSTANT],
+                  color_rules=[RuleType.DISTRIBUTE_THREE],
+                  number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
+                  position_rules=[RuleType.CONSTANT])
+
+ruleset_10 = Ruleset(size_rules=[RuleType.CONSTANT],
+                  shape_rules=[RuleType.CONSTANT],
+                  color_rules=[RuleType.ARITHMETIC],
+                  number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
+                  position_rules=[RuleType.CONSTANT])
+
+# two sets with two changes
+ruleset_11 = Ruleset(size_rules=[RuleType.PROGRESSION],
+                  shape_rules=[RuleType.CONSTANT],
+                  color_rules=[RuleType.ARITHMETIC],
+                  number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
+                  position_rules=[RuleType.CONSTANT])
+
+ruleset_12 = Ruleset(size_rules=[RuleType.CONSTANT],
+                  shape_rules=[RuleType.DISTRIBUTE_THREE],
+                  color_rules=[RuleType.ARITHMETIC],
+                  number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
+                  position_rules=[RuleType.CONSTANT])
+
+rules = [ruleset_1, ruleset_2, ruleset_3, ruleset_4, ruleset_5,
+         ruleset_6, ruleset_8, ruleset_9, ruleset_10,
+         ruleset_11, ruleset_12]
 
 
 # because its only single pieces (i.e., list(MatrixType)[0])
 # you can't change position
 
 os.getcwd()
-os.chdir('/Users/njudd/Desktop/rpms')
+os.chdir('/Users/njudd/surfdrive/Shared/ravenStim/rpms')
 for w in range(len(rules)):
     os.mkdir("rpm_rule" + str(w))
     os.chdir("rpm_rule" + str(w))
     #print(w)
-    for i in range(5):
+    for i in range(10):
         loopname = "rpm_ct_"
         loopname += str(i)
         #print("innerloop")
