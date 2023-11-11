@@ -10,6 +10,7 @@ from .component import Component, ComponentType, LayoutType
 
 
 class RuleType(Enum):
+    #RAND = auto()
     CONSTANT = auto()
     PROGRESSION = auto()
     ARITHMETIC = auto()
@@ -40,6 +41,9 @@ def apply_rule(rule: Rule,
             rule.attr is AttributeType.UNIFORMITY or \
             rule.attr not in AttributeType:
         raise ValueError("unsupported attribute")
+    #elif rule.name is RuleType.RAND:
+        #next_comp = copy.deepcopy(next_comp)
+    #    next_comp.sample(carryover=False)
     elif rule.name is RuleType.CONSTANT:
         next_comp = copy.deepcopy(next_comp)
         if rule.attr is AttributeType.CONFIGURATION:
@@ -205,6 +209,15 @@ def apply_rule(rule: Rule,
     rule.increment()
     return next_comp
 
+
+#@dataclass
+#class Rand(Rule):
+#    def __post_init__(self):
+#        super(Rand, self).__post_init__()
+#        self.prev_is_col_0 = True
+
+ #   def increment(self):
+ #       self.prev_is_col_0 = not self.prev_is_col_0
 
 @dataclass
 class Constant(Rule):
@@ -378,6 +391,8 @@ class Ruleset:
 
     @staticmethod
     def rule(name, attr):
+        #if name is RuleType.RAND:
+         #   return Rand(name, attr, params=None)
         if name is RuleType.CONSTANT:
             return Constant(name, attr, params=None)
         elif name is RuleType.PROGRESSION:
