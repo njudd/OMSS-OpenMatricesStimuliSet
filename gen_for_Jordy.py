@@ -5,6 +5,18 @@ from PIL import Image
 import os
 import numpy as np
 
+### Naming of stimuli
+# The ordering matters; this is for saving and not naming because Py doesn’t like the dot
+#
+# R = rule; P = Problem
+# c = constant; p = progression; a = arithmetic; d = dist3
+# cl = color, sh = shape, sz = size, n = number, p = position,
+# a = all, r = rest
+#
+# Example:
+# R4_a.sz_c.r_P1_alternative2 (rule 1, arithmetic size, constant rest, Problem 1, Alternative 2)
+
+
 
 #raven_gen.attribute.SIZE_VALUES
 #raven_gen.attribute.COLOR_VALUES
@@ -182,20 +194,28 @@ os.chdir('/Users/njudd/surfdrive/Shared/ravenStim/rpms_new_CT')
 os.mkdir('/Users/njudd/surfdrive/Shared/ravenStim/rpms_new_CT/layout1')
 os.chdir('/Users/njudd/surfdrive/Shared/ravenStim/rpms_new_CT/layout1')
 
+
+# this one I think I fixed (note prob_name and adding plus one to line 208)
+# yet you need to test it too see, check naming convention
+# Probably the dir needs a layout ref in it as well
+
+# BIG THING MISSING IS THE NEW NAMING CONVENTION FOR RULES!!!!!!!
+
 for w in range(len(rules)):
     os.mkdir("rpm_" + list(rules)[w])
     os.chdir("rpm_" + list(rules)[w])
     #print(w)
     for i in range(10):
-        loopname = ("rpm_prob_" + list(rules)[w])
-        loopname += str(i)
+        loopname = ("rpm_" + list(rules)[w])
+        loopname += ("P" + str(i+1)) # plus one to get rid of Python indexing
         #print("innerloop")
         #print(i)
-        rpm = Matrix.make(list(MatrixType)[0], ruleset=list(rules.values())[w], n_alternatives=3)
+        rpm = Matrix.make(list(MatrixType)[0], ruleset=list(rules.values())[w], n_alternatives=8)
         os.mkdir(loopname)  # making a dir for the rpm stuff
-        rpm.save(loopname + "/.", loopname)  # going in that dir, also naming the stimuli by the loopname
+        probname = ("Layout1" + loopname)
+        rpm.save(loopname + "/.", probname)  # going in that dir, also naming the stimuli by the loopname
 
-        with open(loopname + "/" + loopname + "output.txt",
+        with open(loopname + "/" + probname + "output.txt",
                   "a") as f:  # going into the folder and making an output per item
             print(rpm.rules, file=f)
 
