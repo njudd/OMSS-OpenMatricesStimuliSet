@@ -14,7 +14,7 @@ simpleRPM_1.gimme()
 whole_img = simpleRPM_1.ans_img
 #step 1 make multiply into colors values (three's)
 # THIS step is already in gimme()
-whole_img = np.repeat(whole_img[:, :, np.newaxis], 3, axis=2)
+#whole_img = np.repeat(whole_img[:, :, np.newaxis], 3, axis=2)
 
 # step 2; target and change the values
 M = int(whole_img[whole_img == [168,168,168]].shape[0]/3)
