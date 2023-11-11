@@ -37,37 +37,37 @@ raven_gen.attribute.SIZE_MAX = 3 # need to tell it the length of the new vector 
 
 
 # all constant
-ruleset_1_constant = Ruleset(size_rules=[RuleType.CONSTANT],
+R1 = Ruleset(size_rules=[RuleType.CONSTANT],
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.CONSTANT],
                   number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
                   position_rules=[RuleType.CONSTANT])
 
-ruleset_2_sizeProgression = Ruleset(size_rules=[RuleType.PROGRESSION],
+R2 = Ruleset(size_rules=[RuleType.PROGRESSION],
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.CONSTANT],
                   number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
                   position_rules=[RuleType.CONSTANT])
 
-ruleset_3_sizeDist3 = Ruleset(size_rules=[RuleType.DISTRIBUTE_THREE],
+R3 = Ruleset(size_rules=[RuleType.DISTRIBUTE_THREE],
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.CONSTANT],
                   number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
                   position_rules=[RuleType.CONSTANT])
 
-ruleset_4_sizeArith = Ruleset(size_rules=[RuleType.ARITHMETIC],
+R4 = Ruleset(size_rules=[RuleType.ARITHMETIC],
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.CONSTANT],
                   number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
                   position_rules=[RuleType.CONSTANT])
 
-ruleset_5_shapeProgression = Ruleset(size_rules=[RuleType.CONSTANT],
+R5 = Ruleset(size_rules=[RuleType.CONSTANT],
                   shape_rules=[RuleType.PROGRESSION],
                   color_rules=[RuleType.CONSTANT],
                   number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
                   position_rules=[RuleType.CONSTANT])
 
-ruleset_6_shapeDist3 = Ruleset(size_rules=[RuleType.CONSTANT],
+R6 = Ruleset(size_rules=[RuleType.CONSTANT],
                   shape_rules=[RuleType.DISTRIBUTE_THREE],
                   color_rules=[RuleType.CONSTANT],
                   number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
@@ -75,44 +75,36 @@ ruleset_6_shapeDist3 = Ruleset(size_rules=[RuleType.CONSTANT],
 
 # advanced for the other layouts
 
-ruleset_7_numProg = Ruleset(size_rules=[RuleType.CONSTANT],
+R7 = Ruleset(size_rules=[RuleType.CONSTANT],
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.CONSTANT], # you have too many color options & not enough blocks for this too work
                   number_rules=[RuleType.PROGRESSION], # if you only do single stimulis this isn't an issue
                   position_rules=[RuleType.CONSTANT])
 
 
-ruleset_8_numDist3 = Ruleset(size_rules=[RuleType.CONSTANT],
+R8 = Ruleset(size_rules=[RuleType.CONSTANT],
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.CONSTANT], # you have too many color options & not enough blocks for this too work
                   number_rules=[RuleType.DISTRIBUTE_THREE], # if you only do single stimulis this isn't an issue
                   position_rules=[RuleType.CONSTANT])
 
-ruleset_9_numArith = Ruleset(size_rules=[RuleType.CONSTANT],
+R9 = Ruleset(size_rules=[RuleType.CONSTANT],
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.CONSTANT], # you have too many color options & not enough blocks for this too work
                   number_rules=[RuleType.ARITHMETIC], # if you only do single stimulis this isn't an issue
                   position_rules=[RuleType.CONSTANT])
 
-ruleset_10_positionProg = Ruleset(size_rules=[RuleType.CONSTANT],
+R10 = Ruleset(size_rules=[RuleType.CONSTANT],
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.CONSTANT], # you have too many color options & not enough blocks for this too work
                   number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
                   position_rules=[RuleType.PROGRESSION])
 
-ruleset_11_positionDist3 = Ruleset(size_rules=[RuleType.CONSTANT],
+R11 = Ruleset(size_rules=[RuleType.CONSTANT],
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.CONSTANT], # you have too many color options & not enough blocks for this too work
                   number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
                   position_rules=[RuleType.DISTRIBUTE_THREE])
-
-ruleset_12_mix_sizeProg_shapeDist3 = Ruleset(size_rules=[RuleType.PROGRESSION],
-                                             shape_rules=[RuleType.DISTRIBUTE_THREE])
-ruleset_13_mix_numArith_shapeProg = Ruleset(number_rules=[RuleType.ARITHMETIC],
-                                             shape_rules=[RuleType.PROGRESSION])
-ruleset_14_mix_sizeArith_shapeConst = Ruleset(size_rules=[RuleType.ARITHMETIC],
-                                             shape_rules=[RuleType.CONSTANT])
-
 
 #### playspace ####
 # import raven_gen
@@ -162,22 +154,21 @@ ruleset_14_mix_sizeArith_shapeConst = Ruleset(size_rules=[RuleType.ARITHMETIC],
 # first_val = list(rules.values())[0]
 
 # using dicts instead of lists
-rules = {'ruleset_1_constant':ruleset_1_constant,
-         'ruleset_2_sizeProgression':ruleset_2_sizeProgression, 'ruleset_3_sizeDist3':ruleset_3_sizeDist3,
-         'ruleset_4_sizeArith':ruleset_4_sizeArith, 'ruleset_5_shapeProgression':ruleset_5_shapeProgression, 'ruleset_6_shapeDist3':ruleset_6_shapeDist3}
+rules = {'R1':R1,'R2':R2, 'R3':R3,'R4':R4, 'R5':R5, 'R6':R6}
 
-rules_extra = {'ruleset_1_constant':ruleset_1_constant,
-         'ruleset_2_sizeProgression':ruleset_2_sizeProgression, 'ruleset_3_sizeDist3':ruleset_3_sizeDist3,
-         'ruleset_4_sizeArith':ruleset_4_sizeArith, 'ruleset_5_shapeProgression':ruleset_5_shapeProgression, 'ruleset_6_shapeDist3':ruleset_6_shapeDist3,
-               'ruleset_7_numProg':ruleset_7_numProg, 'ruleset_8_numDist3':ruleset_8_numDist3, 'ruleset_9_numArith':ruleset_9_numArith,
-               'ruleset_10_positionProg':ruleset_10_positionProg, 'ruleset_11_positionDist3':ruleset_11_positionDist3}
+rules_extra = {'R1':R1,'R2':R2, 'R3':R3,'R4':R4, 'R5':R5, 'R6':R6,
+               'R7':R7,'R8':R8, 'R9':R9}
 
-# new try's
-rules_new = {'ruleset_12_mix_sizeProg_shapeDist3':ruleset_12_mix_sizeProg_shapeDist3,
-             'ruleset_13_mix_numArith_shapeProg':ruleset_13_mix_numArith_shapeProg,
-             'ruleset_14_mix_sizeArith_shapeConst':ruleset_14_mix_sizeArith_shapeConst}
-rules = rules_new
-rules_extra = rules_new
+##### new rules
+# not sure if these are good
+# SEE NOTES!!!
+
+ruleset_12_mix_sizeProg_shapeDist3 = Ruleset(size_rules=[RuleType.PROGRESSION],
+                                             shape_rules=[RuleType.DISTRIBUTE_THREE])
+ruleset_13_mix_numArith_shapeProg = Ruleset(number_rules=[RuleType.ARITHMETIC],
+                                             shape_rules=[RuleType.PROGRESSION])
+ruleset_14_mix_sizeArith_shapeConst = Ruleset(size_rules=[RuleType.ARITHMETIC],
+                                             shape_rules=[RuleType.CONSTANT])
 
 
 # because its only single pieces (i.e., list(MatrixType)[0])
