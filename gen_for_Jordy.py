@@ -87,6 +87,37 @@ R6 = Ruleset(size_rules=[RuleType.CONSTANT], # R6_shD_rC
 
 
 
+######## Take 2 on rules
+# since number & position are so linked we will generate with them both the same
+
+
+# this should stop rotation noise
+raven_gen.attribute.UNI_VALUES = (True, True, True)
+raven_gen.attribute.UNI_MIN = 0
+raven_gen.attribute.UNI_MAX = len(raven_gen.attribute.UNI_VALUES) - 1
+
+R7_numP_posP_rC = Ruleset(size_rules=[RuleType.CONSTANT], # R7_numP_posP_rC
+                  shape_rules=[RuleType.CONSTANT],
+                  color_rules=[RuleType.CONSTANT], # you have too many color options & not enough blocks for this too work
+                  number_rules=[RuleType.PROGRESSION], # if you only do single stimulis this isn't an issue
+                  position_rules=[RuleType.PROGRESSION])
+
+R7_numD_posD_rC = Ruleset(size_rules=[RuleType.CONSTANT], # R7_numD_posD_rC
+                  shape_rules=[RuleType.CONSTANT],
+                  color_rules=[RuleType.CONSTANT], # you have too many color options & not enough blocks for this too work
+                  number_rules=[RuleType.DISTRIBUTE_THREE], # if you only do single stimulis this isn't an issue
+                  position_rules=[RuleType.DISTRIBUTE_THREE])
+
+R7_numA_posA_rC = Ruleset(size_rules=[RuleType.CONSTANT], # R7_numA_posA_rC
+                  shape_rules=[RuleType.CONSTANT],
+                  color_rules=[RuleType.CONSTANT], # you have too many color options & not enough blocks for this too work
+                  number_rules=[RuleType.ARITHMETIC], # if you only do single stimulis this isn't an issue
+                  position_rules=[RuleType.ARITHMETIC])
+
+
+
+
+
 
 ######## are these okay...?
 
@@ -136,7 +167,7 @@ rct = Ruleset(size_rules=[RuleType.CONSTANT],
 
 
 
-#### playspace ####
+#### START playspace START ####
 # import raven_gen
 # from raven_gen import Matrix, MatrixType, Ruleset, RuleType, AttributeType
 # import os
@@ -175,17 +206,8 @@ rct = Ruleset(size_rules=[RuleType.CONSTANT],
 
 # there is some error depending on a certian combination...
 # remember they do special things for position & number (you should only rand the attribute table)
-#### playspace ####
+#### END playspace  END ####
 
-
-
-# https://stackoverflow.com/questions/4326658/how-to-index-into-a-dictionary
-# first_key = list(rules)[0]
-# first_val = list(rules.values())[0]
-
-# using dicts instead of lists
-rules = {'R1_allC':R1,'R2_szP_rC':R2, 'R3_szD_rC':R3,
-         'R4_szA_rC':R4, 'R5_shP_rC':R5, 'R6_shD_rC':R6}
 
 # rules_extra = {'R1':R1,'R2':R2, 'R3':R3,'R4':R4, 'R5':R5, 'R6':R6,
 #                'R7':R7,'R8':R8, 'R9':R9}
@@ -202,26 +224,23 @@ ruleset_14_mix_sizeArith_shapeConst = Ruleset(size_rules=[RuleType.ARITHMETIC],
                                              shape_rules=[RuleType.CONSTANT])
 
 
-# because its only single pieces (i.e., list(MatrixType)[0])
-# you can't change position
+# using dicts instead of lists https://stackoverflow.com/questions/4326658/how-to-index-into-a-dictionary
+rules = {'R1_allC':R1,'R2_szP_rC':R2, 'R3_szD_rC':R3, # first_key = list(rules)[0] # first_val = list(rules.values())[0]
+         'R4_szA_rC':R4, 'R5_shP_rC':R5, 'R6_shD_rC':R6}
 
 os.getcwd()
-os.chdir('/Users/njudd/surfdrive/Shared/ravenStim/rpms_new_CT')
-
+# os.chdir('/Users/njudd/surfdrive/Shared/ravenStim/rpms_new_CT')
 
 # I could do a for look with 3 but I want different rule sets so I will just hardcode
-os.mkdir('/Users/njudd/surfdrive/Shared/ravenStim/rpms_new_CT/layout1')
-os.chdir('/Users/njudd/surfdrive/Shared/ravenStim/rpms_new_CT/layout1')
+# os.mkdir('/Users/njudd/surfdrive/Shared/ravenStim/rpms_new_CT/layout1')
+# os.chdir('/Users/njudd/surfdrive/Shared/ravenStim/rpms_new_CT/layout1')
 
 
 # this one I think I fixed (note prob_name and adding plus one to line 208)
 # yet you need to test it too see, check naming convention
 # Probably the dir needs a layout ref in it as well
 
-# BIG THING MISSING IS THE NEW NAMING CONVENTION FOR RULES!!!!!!!
-
 layout_list = {"L1":0, "L2":1,"L3":2}
-
 os.chdir("/Users/njudd/Desktop/ct_ravGen/")
 
 
@@ -230,27 +249,29 @@ os.chdir("/Users/njudd/Desktop/ct_ravGen/")
 # layout_index.values()(1)
 # TypeError: 'dict_values' object is not callable
 
+# think I fixed it by just wrapping a list(MatrixType)[list(layout_list.values())[ll]]
+
+
 
 for ll in range(len(layout_list)): # ll = layout loop index
     os.mkdir("Layout_" + list(layout_list)[ll])
     os.chdir("Layout_" + list(layout_list)[ll])
-
-# now go over the vector of rules
+    # now go over the vector of rules
     for w in range(len(rules)):
-        os.mkdir("rpm_" + list(rules)[w])
-        os.chdir("rpm_" + list(rules)[w])
-        # print(w)
+        os.mkdir("rpm" + list(rules)[w])
+        os.chdir("rpm" + list(rules)[w])
+        # now make a certian number of problems
         for i in range(3):
-            loopname = ("rpm_" + list(rules)[w])
-            loopname += ("P" + str(i + 1))  # plus one to get rid of Python indexing
+            loopname = ("rpm" + list(rules)[w])
+            loopname += ("_P" + str(i + 1))  # plus one to get rid of Python indexing
             # print("innerloop")
             # print(i)
-            rpm = Matrix.make(list(MatrixType)[layout_list[list(layout_list)[ll]]], ruleset=list(rules.values())[w], n_alternatives=8)
+            rpm = Matrix.make(list(MatrixType)[list(layout_list.values())[ll]], ruleset=list(rules.values())[w], n_alternatives=8)
             os.mkdir(loopname)  # making a dir for the rpm stuff
-            probname = ("Layout1" + loopname)
+            probname = (list(layout_list)[ll] + loopname) #making the problem name start with the type of layout
             rpm.save(loopname + "/.", probname)  # going in that dir, also naming the stimuli by the loopname
 
-            with open(loopname + "/" + probname + "output.txt",
+            with open(loopname + "/" + probname + "_output.txt",
                       "a") as f:  # going into the folder and making an output per item
                 print(rpm.rules, file=f)
 
@@ -267,6 +288,15 @@ for ll in range(len(layout_list)): # ll = layout loop index
 
 
 # now you can make another one just for the rules you don't use in all layouts
+
+
+
+
+
+
+
+
+
 
 
 
