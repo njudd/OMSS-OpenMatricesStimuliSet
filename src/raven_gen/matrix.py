@@ -525,7 +525,7 @@ class Matrix:
             whole_img[change_color] = color_color
 
         corner_rightbottom = int((image_size / 3) * 2 + 5)  # assuming a 3by3 grid, adding 5 to get rid of lines
-        ans = whole_img[corner_rightbottom:, corner_rightbottom:]  # this gets you to the bottom right stimuli on a 3x3 grid
+        ans = copy.deepcopy(whole_img[corner_rightbottom:, corner_rightbottom:])  # this gets you to the bottom right stimuli on a 3x3 grid
         ans = Image.fromarray(ans)
         ans.save(os.path.join(path, puzzle_name + "_answer.png"))
 
@@ -534,7 +534,7 @@ class Matrix:
         # you subset the lower right corner of the stimuli object and than fill with white
         resolution = int((image_size / 3) - 5)  # I think times 2 because of the dimensions; int just incase lol
         pixels = resolution**2 # the resolution to the power of two; times 3 for colored pizels
-        stimulus = whole_img
+        stimulus = copy.deepcopy(whole_img)
 
         # here doesn't work because it is the wrong format;
         # you can't fix it before color (well you can but that you need to redefine & color both images
