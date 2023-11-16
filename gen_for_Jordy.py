@@ -228,6 +228,7 @@ ruleset_14_mix_sizeArith_shapeConst = Ruleset(size_rules=[RuleType.ARITHMETIC],
 rules = {'R1_allC':R1,'R2_szP_rC':R2, 'R3_szD_rC':R3, # first_key = list(rules)[0] # first_val = list(rules.values())[0]
          'R4_szA_rC':R4, 'R5_shP_rC':R5, 'R6_shD_rC':R6}
 
+
 os.getcwd()
 # os.chdir('/Users/njudd/surfdrive/Shared/ravenStim/rpms_new_CT')
 
@@ -236,21 +237,22 @@ os.getcwd()
 # os.chdir('/Users/njudd/surfdrive/Shared/ravenStim/rpms_new_CT/layout1')
 
 
-# this one I think I fixed (note prob_name and adding plus one to line 208)
-# yet you need to test it too see, check naming convention
-# Probably the dir needs a layout ref in it as well
-
 layout_list = {"L1":0, "L2":1,"L3":2}
 os.chdir("/Users/njudd/Desktop/ct_ravGen/")
 
+# so generating 8 doesn't work for
+ct = Matrix.make(list(MatrixType)[1], ruleset=list(rules.values())[4], n_alternatives=8)
 
-# list(MatrixType)[layout_list[list(layout_list)[ll]]]
-# ^^^ this line of code is so disgusting you need to fix it
-# layout_index.values()(1)
-# TypeError: 'dict_values' object is not callable
+# list(rules.values())[4] possibly because there are less than 8 shapes with the alternatives
+# has no issue when you generate 3 alternatives
+# this is partially off (the num of alts matter but not rules?); the patter is list(MatrixType)[1] and it seems a bit random
+# happens in earlier rules if I up the num of stimuli I make
 
-# think I fixed it by just wrapping a list(MatrixType)[list(layout_list.values())[ll]]
 
+# this should stop rotation noise
+raven_gen.attribute.UNI_VALUES = (True, True, True)
+raven_gen.attribute.UNI_MIN = 0
+raven_gen.attribute.UNI_MAX = len(raven_gen.attribute.UNI_VALUES) - 1
 
 
 for ll in range(len(layout_list)): # ll = layout loop index
@@ -261,7 +263,7 @@ for ll in range(len(layout_list)): # ll = layout loop index
         os.mkdir("rpm" + list(rules)[w])
         os.chdir("rpm" + list(rules)[w])
         # now make a certian number of problems
-        for i in range(3):
+        for i in range(10):
             loopname = ("rpm" + list(rules)[w])
             loopname += ("_P" + str(i + 1))  # plus one to get rid of Python indexing
             # print("innerloop")
@@ -288,6 +290,15 @@ for ll in range(len(layout_list)): # ll = layout loop index
 
 
 # now you can make another one just for the rules you don't use in all layouts
+
+
+
+
+
+
+
+
+
 
 
 
