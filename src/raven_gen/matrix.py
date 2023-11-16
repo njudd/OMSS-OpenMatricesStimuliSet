@@ -529,6 +529,7 @@ class Matrix:
         ans = Image.fromarray(ans)
         ans.save(os.path.join(path, puzzle_name + "_answer.png"))
 
+
         # goals to make a stim that has the lower corner as white
         # you subset the lower right corner of the stimuli object and than fill with white
         resolution = int((image_size / 3) - 5)  # I think times 2 because of the dimensions; int just incase lol
@@ -553,6 +554,11 @@ class Matrix:
         stimulus = Image.fromarray(stimulus)  # making it an image since I took it away form the return of generate_matrix
         # np.savetxt(os.path.join(path, puzzle_name + "_answerY.png"), img)
         stimulus.save(os.path.join(path, puzzle_name + "_stimulus.png"))
+
+        #saving the entire stimulus with the answer as well
+        whole_img = Image.fromarray(whole_img)
+        whole_img.save(os.path.join(path, puzzle_name + "_stimulusFULL.png"))
+
 
         for i, alternative in enumerate(self.alternatives):
             img = self.generate_matrix(alternative, background_color,
