@@ -229,6 +229,32 @@ rules = {'R1_allC':R1,'R2_szP_rC':R2, 'R3_szD_rC':R3, # first_key = list(rules)[
          'R4_szA_rC':R4, 'R5_shP_rC':R5, 'R6_shD_rC':R6}
 
 
+# good new rules (add arth color as noise)
+
+# color dist 3 with other rules???
+
+# color dist 3 constant
+# color dist 3 shape dist 3
+# color dist 3 with num
+
+# size arth & shap progression
+# num arth & size arth
+
+# type, size and color DIST 3
+# type, size and color DIST 3 with postiion arithmetic (this is good also number arth)
+
+
+# maybe have SHAPE as progression to make noise (or make shapes harder)
+
+
+
+'R6_shD_clD_rC':R6
+
+
+# progression & ARTH doesn't make senes for color
+
+
+
 os.getcwd()
 # os.chdir('/Users/njudd/surfdrive/Shared/ravenStim/rpms_new_CT')
 
@@ -240,19 +266,15 @@ os.getcwd()
 layout_list = {"L1":0, "L2":1,"L3":2}
 os.chdir("/Users/njudd/Desktop/ct_ravGen/")
 
-# so generating 8 doesn't work for
-ct = Matrix.make(list(MatrixType)[1], ruleset=list(rules.values())[4], n_alternatives=8)
-
-# list(rules.values())[4] possibly because there are less than 8 shapes with the alternatives
-# has no issue when you generate 3 alternatives
-# this is partially off (the num of alts matter but not rules?); the patter is list(MatrixType)[1] and it seems a bit random
-# happens in earlier rules if I up the num of stimuli I make
-
-
 # this should stop rotation noise
-raven_gen.attribute.UNI_VALUES = (True, True, True)
-raven_gen.attribute.UNI_MIN = 0
-raven_gen.attribute.UNI_MAX = len(raven_gen.attribute.UNI_VALUES) - 1
+# raven_gen.attribute.UNI_VALUES = (False, False, False)
+# raven_gen.attribute.UNI_MIN = 0
+# raven_gen.attribute.UNI_MAX = len(raven_gen.attribute.UNI_VALUES) - 1
+
+
+
+# to do; try these all rules with color progression (makes no sense)
+
 
 
 for ll in range(len(layout_list)): # ll = layout loop index
@@ -263,12 +285,12 @@ for ll in range(len(layout_list)): # ll = layout loop index
         os.mkdir("rpm" + list(rules)[w])
         os.chdir("rpm" + list(rules)[w])
         # now make a certian number of problems
-        for i in range(10):
+        for i in range(5):
             loopname = ("rpm" + list(rules)[w])
             loopname += ("_P" + str(i + 1))  # plus one to get rid of Python indexing
             # print("innerloop")
             # print(i)
-            rpm = Matrix.make(list(MatrixType)[list(layout_list.values())[ll]], ruleset=list(rules.values())[w], n_alternatives=8)
+            rpm = Matrix.make(list(MatrixType)[list(layout_list.values())[ll]], ruleset=list(rules.values())[w], n_alternatives=3)
             os.mkdir(loopname)  # making a dir for the rpm stuff
             probname = (list(layout_list)[ll] + loopname) #making the problem name start with the type of layout
             rpm.save(loopname + "/.", probname)  # going in that dir, also naming the stimuli by the loopname
@@ -289,28 +311,95 @@ for ll in range(len(layout_list)): # ll = layout loop index
 
 
 
+# with 3 alternatives it seems fine but with 5 it starts fucking up around 2nd layout
+# it seems like with more alternatives this rare bug pops up
+
+# this one is very much a bitch
+# THE ERROR COMES UP A LOT
+# ct = Matrix.make(list(MatrixType)[1], ruleset=R9_numA_rC, n_alternatives=1)
+# ct.gimme()
+# plt.imshow(ct.ans_img, cmap='gray')
+# plt.show()
+
+
+
+
+
+
+##### go into the rabbit hole of position = NA.
+
+
+
+
 # now you can make another one just for the rules you don't use in all layouts
 
 
+# list(rules.values())[4] possibly because there are less than 8 shapes with the alternatives
+# has no issue when you generate 3 alternatives
+# this is partially off (the num of alts matter but not rules?); the patter is list(MatrixType)[1] and it seems a bit random
+# happens in earlier rules if I up the num of stimuli I make
+
+### it is not size, seems also to not be uni_values...
+
+
+# so generating 8 doesn't work for
+testing_rules = Ruleset(size_rules=[RuleType.CONSTANT],
+                  shape_rules=[RuleType.ARITHMETIC],
+                  color_rules=[RuleType.CONSTANT], # you have too many color options & not enough blocks for this too work
+                  number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
+                  position_rules=[RuleType.CONSTANT])
+ct = Matrix.make(list(MatrixType)[1], ruleset=R1, n_alternatives=3)
+ct.save(".", "ct.png")
+#
+# ct.gimme()
+# plt.imshow(ct.ans_img, cmap='gray')
+# plt.show()
+
+
+# line 96 in attribute.py
+import raven_gen
+from raven_gen import Matrix, MatrixType, Ruleset, RuleType
+import matplotlib.pyplot as plt
+from PIL import Image
+import os
+import numpy as np
+ct = Matrix.make(list(MatrixType)[0], n_alternatives=8)
+ct.gimme()
+plt.imshow(ct.ans_img, cmap='gray')
+plt.show()
+
+
+# ^^^ the error occasionally just comes up in this
+# see if it happens on their clean version
+
+
+# as you up the alternatives you run into a hardcore error...
 
 
 
 
 
+# making an empty grid
+ct = Matrix.make(list(MatrixType)[0], ruleset=list(rules.values())[0])
+ct.save("/Users/njudd/Desktop/", "temp.png")
+# col 1
+ct.ans_img[5:245,5:245] = np.reshape([255] * 240**2 * 3,[int(240), int(240), 3])
+ct.ans_img[5:245,255:495] = np.reshape([255] * 240**2 * 3,[int(240), int(240), 3])
+ct.ans_img[5:245,505:745] = np.reshape([255] * 240**2 * 3,[int(240), int(240), 3])
+# col 2
+ct.ans_img[255:495,5:245] = np.reshape([255] * 240**2 * 3,[int(240), int(240), 3])
+ct.ans_img[255:495,255:495] = np.reshape([255] * 240**2 * 3,[int(240), int(240), 3])
+ct.ans_img[255:495,505:745] = np.reshape([255] * 240**2 * 3,[int(240), int(240), 3])
+# col 3
+ct.ans_img[505:745,5:245] = np.reshape([255] * 240**2 * 3,[int(240), int(240), 3])
+ct.ans_img[505:745,255:495] = np.reshape([255] * 240**2 * 3,[int(240), int(240), 3])
+ct.ans_img[505:745,505:745] = np.reshape([255] * 240**2 * 3,[int(240), int(240), 3])
 
+ct.ans_img = Image.fromarray(ct.ans_img)
 
-
-
-
-
-
-
-
-
-
-
-
-
+plt.imshow(ct.ans_img, cmap='gray')
+plt.show()
+ct.ans_img.save("/Users/njudd/Desktop/blankStim.png")
 
 
 
