@@ -213,35 +213,29 @@ R7_numP_rC = Ruleset(size_rules=[RuleType.CONSTANT],
 # number and position independently (which doesn't work)
 # could try making them both the same rule?
 
-R8_numD_rC = Ruleset(size_rules=[RuleType.CONSTANT],
-                  shape_rules=[RuleType.CONSTANT],
-                  color_rules=[RuleType.CONSTANT], # you have too many color options & not enough blocks for this too work
-                  number_rules=[RuleType.DISTRIBUTE_THREE], # if you only do single stimulis this isn't an issue
-                  position_rules=[RuleType.CONSTANT])
-
-R9_numA_rC = Ruleset(size_rules=[RuleType.CONSTANT],
-                  shape_rules=[RuleType.CONSTANT],
-                  color_rules=[RuleType.CONSTANT], # you have too many color options & not enough blocks for this too work
-                  number_rules=[RuleType.ARITHMETIC], # if you only do single stimulis this isn't an issue
-                  position_rules=[RuleType.CONSTANT])
-
-R10 = Ruleset(size_rules=[RuleType.CONSTANT],
-                  shape_rules=[RuleType.CONSTANT],
-                  color_rules=[RuleType.CONSTANT], # you have too many color options & not enough blocks for this too work
-                  number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
-                  position_rules=[RuleType.PROGRESSION])
-
-R11 = Ruleset(size_rules=[RuleType.CONSTANT],
-                  shape_rules=[RuleType.CONSTANT],
-                  color_rules=[RuleType.CONSTANT], # you have too many color options & not enough blocks for this too work
-                  number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
-                  position_rules=[RuleType.DISTRIBUTE_THREE])
-
-rct = Ruleset(size_rules=[RuleType.CONSTANT],
-                  shape_rules=[RuleType.CONSTANT],
-                  color_rules=[RuleType.CONSTANT],
-                  number_rules=[RuleType.DISTRIBUTE_THREE],
-                  position_rules=[RuleType.DISTRIBUTE_THREE])
+# R8_numD_rC = Ruleset(size_rules=[RuleType.CONSTANT],
+#                   shape_rules=[RuleType.CONSTANT],
+#                   color_rules=[RuleType.CONSTANT], # you have too many color options & not enough blocks for this too work
+#                   number_rules=[RuleType.DISTRIBUTE_THREE], # if you only do single stimulis this isn't an issue
+#                   position_rules=[RuleType.CONSTANT])
+#
+# R9_numA_rC = Ruleset(size_rules=[RuleType.CONSTANT],
+#                   shape_rules=[RuleType.CONSTANT],
+#                   color_rules=[RuleType.CONSTANT], # you have too many color options & not enough blocks for this too work
+#                   number_rules=[RuleType.ARITHMETIC], # if you only do single stimulis this isn't an issue
+#                   position_rules=[RuleType.CONSTANT])
+#
+# R10 = Ruleset(size_rules=[RuleType.CONSTANT],
+#                   shape_rules=[RuleType.CONSTANT],
+#                   color_rules=[RuleType.CONSTANT], # you have too many color options & not enough blocks for this too work
+#                   number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
+#                   position_rules=[RuleType.PROGRESSION])
+#
+# R11 = Ruleset(size_rules=[RuleType.CONSTANT],
+#                   shape_rules=[RuleType.CONSTANT],
+#                   color_rules=[RuleType.CONSTANT], # you have too many color options & not enough blocks for this too work
+#                   number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
+#                   position_rules=[RuleType.DISTRIBUTE_THREE])
 
 
 
@@ -285,10 +279,6 @@ rct = Ruleset(size_rules=[RuleType.CONSTANT],
 # there is some error depending on a certian combination...
 # remember they do special things for position & number (you should only rand the attribute table)
 #### END playspace  END ####
-
-
-# rules_extra = {'R1':R1,'R2':R2, 'R3':R3,'R4':R4, 'R5':R5, 'R6':R6,
-#                'R7':R7,'R8':R8, 'R9':R9}
 
 ##### new rules
 # not sure if these are good
@@ -509,137 +499,6 @@ ct.ans_img.save("/Users/njudd/Desktop/blankStim.png")
 
 
 
-for w in range(len(rules)):
-    os.mkdir("rpm_" + list(rules)[w])
-    os.chdir("rpm_" + list(rules)[w])
-    #print(w)
-    for i in range(3):
-        loopname = ("rpm_" + list(rules)[w])
-        loopname += ("P" + str(i+1)) # plus one to get rid of Python indexing
-        #print("innerloop")
-        #print(i)
-        rpm = Matrix.make(list(MatrixType)[0], ruleset=list(rules.values())[w], n_alternatives=8)
-        os.mkdir(loopname)  # making a dir for the rpm stuff
-        probname = ("Layout1" + loopname)
-        rpm.save(loopname + "/.", probname)  # going in that dir, also naming the stimuli by the loopname
-
-        with open(loopname + "/" + probname + "output.txt",
-                  "a") as f:  # going into the folder and making an output per item
-            print(rpm.rules, file=f)
-
-        with open("Global_output.txt", "a") as f:  # going into the folder and making an output per item
-            print(rpm.rules, file=f)
-    os.chdir("..")
-
-    # barf rules
-    with open("Global_rules.txt", "a") as f:  # going into the folder and making an output per item
-        print(list(rules)[w], file=f)
-
-
-
-os.mkdir('/Users/njudd/surfdrive/Shared/ravenStim/rpms_new_CT/layout2')
-os.chdir('/Users/njudd/surfdrive/Shared/ravenStim/rpms_new_CT/layout2')
-
-for w in range(len(rules_extra)):
-    os.mkdir("rpm_" + list(rules_extra)[w])
-    os.chdir("rpm_" + list(rules_extra)[w])
-    #print(w)
-    for i in range(10):
-        loopname = ("rpm_prob_" + list(rules_extra)[w])
-        loopname += str(i)
-        #print("innerloop")
-        #print(i)
-        rpm = Matrix.make(list(MatrixType)[1], ruleset=list(rules_extra.values())[w], n_alternatives=3)
-        os.mkdir(loopname)  # making a dir for the rpm stuff
-        rpm.save(loopname + "/.", loopname)  # going in that dir, also naming the stimuli by the loopname
-
-        with open(loopname + "/" + loopname + "output.txt",
-                  "a") as f:  # going into the folder and making an output per item
-            print(rpm.rules, file=f)
-
-        with open("Global_output.txt", "a") as f:  # going into the folder and making an output per item
-            print(rpm.rules, file=f)
-    os.chdir("..")
-
-    # barf rules
-    with open("Global_rules.txt", "a") as f:  # going into the folder and making an output per item
-        print(list(rules_extra)[w], file=f)
-
-
-os.mkdir('/Users/njudd/surfdrive/Shared/ravenStim/rpms_new_CT/layout3')
-os.chdir('/Users/njudd/surfdrive/Shared/ravenStim/rpms_new_CT/layout3')
-
-for w in range(len(rules_extra)):
-    os.mkdir("rpm_" + list(rules_extra)[w])
-    os.chdir("rpm_" + list(rules_extra)[w])
-    #print(w)
-    for i in range(10):
-        loopname = ("rpm_prob_" + list(rules_extra)[w])
-        loopname += str(i)
-        #print("innerloop")
-        #print(i)
-        rpm = Matrix.make(list(MatrixType)[2], ruleset=list(rules_extra.values())[w], n_alternatives=3)
-        os.mkdir(loopname)  # making a dir for the rpm stuff
-        rpm.save(loopname + "/.", loopname)  # going in that dir, also naming the stimuli by the loopname
-
-        with open(loopname + "/" + loopname + "output.txt",
-                  "a") as f:  # going into the folder and making an output per item
-            print(rpm.rules, file=f)
-
-        with open("Global_output.txt", "a") as f:  # going into the folder and making an output per item
-            print(rpm.rules, file=f)
-    os.chdir("..")
-
-    # barf rules
-    with open("Global_rules.txt", "a") as f:  # going into the folder and making an output per item
-        print(list(rules_extra)[w], file=f)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-os.getcwd()
-
-
-os.chdir("/Users/njudd/Desktop/rpms_100rand")
-# just making 100 randomly sampled
-for i in range(100):
-    loopname = "rpm_ct_"
-    loopname += str(i)
-    # print("innerloop")
-    # print(i)
-    rpm = Matrix.make(list(MatrixType)[0], n_alternatives=3)
-    os.mkdir(loopname)  # making a dir for the rpm stuff
-    rpm.save(loopname + "/.", loopname)  # going in that dir, also naming the stimuli by the loopname
-
-    with open(loopname + "/" + loopname + "output.txt",
-              "a") as f:  # going into the folder and making an output per item
-        print(rpm.rules, file=f)
-
-    with open("Global_output.txt", "a") as f:  # going into the folder and making an output per item
-        print(rpm.rules, file=f)
-
-
-
-
-
 # maybe make a panda's dataframe of the rules as well?
 
 
@@ -650,12 +509,6 @@ for i in range(100):
 #plt.show()
 print(rpm.rules)
 #print(rpm)
-
-with open("output.txt", "a") as f: # a is for append
-  print("start")
-  print(rpm.rules, file=f)
-  print("end")
-
 
 
 
