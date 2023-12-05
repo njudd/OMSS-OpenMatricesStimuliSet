@@ -55,15 +55,33 @@ R1 = Ruleset(size_rules=[RuleType.CONSTANT],
                   number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
                   position_rules=[RuleType.CONSTANT])
 
+R1c = Ruleset(size_rules=[RuleType.CONSTANT],
+                  shape_rules=[RuleType.CONSTANT],
+                  color_rules=[RuleType.DISTRIBUTE_THREE],
+                  number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
+                  position_rules=[RuleType.CONSTANT])
+
 R2 = Ruleset(size_rules=[RuleType.PROGRESSION], # R2_szP_rC
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.CONSTANT],
                   number_rules=[RuleType.CONSTANT],
                   position_rules=[RuleType.CONSTANT])
 
+R2c = Ruleset(size_rules=[RuleType.PROGRESSION], # R2_szP_rC
+                  shape_rules=[RuleType.CONSTANT],
+                  color_rules=[RuleType.DISTRIBUTE_THREE],
+                  number_rules=[RuleType.DISTRIBUTE_THREE],
+                  position_rules=[RuleType.CONSTANT])
+
 R3 = Ruleset(size_rules=[RuleType.DISTRIBUTE_THREE], # R3_szD_rC
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.CONSTANT],
+                  number_rules=[RuleType.CONSTANT],
+                  position_rules=[RuleType.CONSTANT])
+
+R3c = Ruleset(size_rules=[RuleType.DISTRIBUTE_THREE], # R3_szD_rC
+                  shape_rules=[RuleType.CONSTANT],
+                  color_rules=[RuleType.DISTRIBUTE_THREE],
                   number_rules=[RuleType.CONSTANT],
                   position_rules=[RuleType.CONSTANT])
 
@@ -73,15 +91,33 @@ R4 = Ruleset(size_rules=[RuleType.ARITHMETIC], # R4_szA_rC
                   number_rules=[RuleType.CONSTANT],
                   position_rules=[RuleType.CONSTANT])
 
+R4c = Ruleset(size_rules=[RuleType.ARITHMETIC], # R4_szA_rC
+                  shape_rules=[RuleType.CONSTANT],
+                  color_rules=[RuleType.DISTRIBUTE_THREE],
+                  number_rules=[RuleType.CONSTANT],
+                  position_rules=[RuleType.CONSTANT])
+
 R5 = Ruleset(size_rules=[RuleType.CONSTANT], # R5_shP_rC
                   shape_rules=[RuleType.PROGRESSION],
                   color_rules=[RuleType.CONSTANT],
                   number_rules=[RuleType.CONSTANT],
                   position_rules=[RuleType.CONSTANT])
 
+R5c = Ruleset(size_rules=[RuleType.CONSTANT], # R5_shP_rC
+                  shape_rules=[RuleType.PROGRESSION],
+                  color_rules=[RuleType.DISTRIBUTE_THREE],
+                  number_rules=[RuleType.CONSTANT],
+                  position_rules=[RuleType.CONSTANT])
+
 R6 = Ruleset(size_rules=[RuleType.CONSTANT], # R6_shD_rC
                   shape_rules=[RuleType.DISTRIBUTE_THREE],
                   color_rules=[RuleType.CONSTANT],
+                  number_rules=[RuleType.CONSTANT],
+                  position_rules=[RuleType.CONSTANT])
+
+R6c = Ruleset(size_rules=[RuleType.CONSTANT], # R6_shD_rC
+                  shape_rules=[RuleType.DISTRIBUTE_THREE],
+                  color_rules=[RuleType.DISTRIBUTE_THREE],
                   number_rules=[RuleType.CONSTANT],
                   position_rules=[RuleType.CONSTANT])
 
@@ -92,9 +128,12 @@ R6 = Ruleset(size_rules=[RuleType.CONSTANT], # R6_shD_rC
 
 
 # this should stop rotation noise
-raven_gen.attribute.UNI_VALUES = (True, True, True)
+raven_gen.attribute.UNI_VALUES = (True, True, False, False)
 raven_gen.attribute.UNI_MIN = 0
 raven_gen.attribute.UNI_MAX = len(raven_gen.attribute.UNI_VALUES) - 1
+
+
+
 
 R7_numP_posP_rC = Ruleset(size_rules=[RuleType.CONSTANT], # R7_numP_posP_rC
                   shape_rules=[RuleType.CONSTANT],
@@ -225,9 +264,10 @@ ruleset_14_mix_sizeArith_shapeConst = Ruleset(size_rules=[RuleType.ARITHMETIC],
 
 
 # using dicts instead of lists https://stackoverflow.com/questions/4326658/how-to-index-into-a-dictionary
-rules = {'R1_allC':R1,'R2_szP_rC':R2, 'R3_szD_rC':R3, # first_key = list(rules)[0] # first_val = list(rules.values())[0]
-         'R4_szA_rC':R4, 'R5_shP_rC':R5, 'R6_shD_rC':R6}
+rules = {'R1_allC':R1,'R2_szP_rC':R2, 'R3_szD_rC':R3, 'R1_clD_rC':R1c,'R2_szP_clD_rC':R2c, 'R3_szD_clD_rC':R3c,# first_key = list(rules)[0] # first_val = list(rules.values())[0]
+         'R4_szA_rC':R4, 'R5_shP_rC':R5, 'R6_shD_rC':R6, 'R4_szA_clD_rC':R4c, 'R5_shP_clD_rC':R5c, 'R6_shD_clD_rC':R6c}
 
+rules = {'R2_szP_clD_rC':R2c}
 
 # good new rules (add arth color as noise)
 
@@ -263,8 +303,7 @@ os.getcwd()
 # os.chdir('/Users/njudd/surfdrive/Shared/ravenStim/rpms_new_CT/layout1')
 
 
-layout_list = {"L1":0, "L2":1,"L3":2}
-os.chdir("/Users/njudd/Desktop/ct_ravGen/")
+os.chdir("/Users/njudd/Desktop/temp/")
 
 # this should stop rotation noise
 # raven_gen.attribute.UNI_VALUES = (False, False, False)
@@ -275,7 +314,11 @@ os.chdir("/Users/njudd/Desktop/ct_ravGen/")
 
 # to do; try these all rules with color progression (makes no sense)
 
+os.chdir('/Users/njudd/surfdrive/Shared/ravenStim/rpm_take2')
 
+
+# layout_list = {"L1":0, "L2":1,"L3":2}
+layout_list = {"L1":0}
 
 for ll in range(len(layout_list)): # ll = layout loop index
     os.mkdir("Layout_" + list(layout_list)[ll])
@@ -285,12 +328,12 @@ for ll in range(len(layout_list)): # ll = layout loop index
         os.mkdir("rpm" + list(rules)[w])
         os.chdir("rpm" + list(rules)[w])
         # now make a certian number of problems
-        for i in range(5):
+        for i in range(10):
             loopname = ("rpm" + list(rules)[w])
             loopname += ("_P" + str(i + 1))  # plus one to get rid of Python indexing
             # print("innerloop")
             # print(i)
-            rpm = Matrix.make(list(MatrixType)[list(layout_list.values())[ll]], ruleset=list(rules.values())[w], n_alternatives=3)
+            rpm = Matrix.make(list(MatrixType)[list(layout_list.values())[ll]], ruleset=list(rules.values())[w], n_alternatives=7)
             os.mkdir(loopname)  # making a dir for the rpm stuff
             probname = (list(layout_list)[ll] + loopname) #making the problem name start with the type of layout
             rpm.save(loopname + "/.", probname)  # going in that dir, also naming the stimuli by the loopname
@@ -363,7 +406,7 @@ import matplotlib.pyplot as plt
 from PIL import Image
 import os
 import numpy as np
-ct = Matrix.make(list(MatrixType)[0], n_alternatives=8)
+ct = Matrix.make(list(MatrixType)[0], n_alternatives=0)
 ct.gimme()
 plt.imshow(ct.ans_img, cmap='gray')
 plt.show()
