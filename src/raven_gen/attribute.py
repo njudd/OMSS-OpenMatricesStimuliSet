@@ -82,6 +82,7 @@ class Sampleable(Attribute):
 
     def sample(self, constraints):
         constraint = getattr(constraints, self.name.name.lower())
+
         self.setting = np.random.choice(
             range(constraint.min, constraint.max + 1))
 
@@ -92,6 +93,14 @@ class UniqueSampleable(Sampleable):
         constraint = getattr(constraints, self.name.name.lower())
         previous_settings = getattr(history, self.name.name.lower())
         all_settings = range(constraint.min, constraint.max + 1)
+        # print(constraint)
+        # print("here start; constraints above")
+        # print(all_settings)
+        # print(previous_settings)
+        # print(self.setting)
+        # print(list(
+        #         set(all_settings) - set(previous_settings) -
+        #         set((self.setting, ))))
         new_setting = np.random.choice(
             list(
                 set(all_settings) - set(previous_settings) -
@@ -102,6 +111,7 @@ class UniqueSampleable(Sampleable):
             previous_settings.append(new_setting)
         if inplace:
             self.setting = new_setting
+        # print(self.setting)
         return new_setting
 
 
@@ -209,6 +219,7 @@ class Configuration:
             number_setting = self.number.sample_unique(constraints,
                                                        history,
                                                        record=False)
+            # print(number_setting)
             number_value = self.number.value_of_setting(number_setting)
             if history.position[number_value].available == 0:
                 continue
