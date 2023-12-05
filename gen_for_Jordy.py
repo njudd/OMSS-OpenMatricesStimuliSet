@@ -264,10 +264,8 @@ ruleset_14_mix_sizeArith_shapeConst = Ruleset(size_rules=[RuleType.ARITHMETIC],
 
 
 # using dicts instead of lists https://stackoverflow.com/questions/4326658/how-to-index-into-a-dictionary
-rules = {'R1_allC':R1,'R2_szP_rC':R2, 'R3_szD_rC':R3, 'R1_clD_rC':R1c,'R2_szP_clD_rC':R2c, 'R3_szD_clD_rC':R3c,# first_key = list(rules)[0] # first_val = list(rules.values())[0]
-         'R4_szA_rC':R4, 'R5_shP_rC':R5, 'R6_shD_rC':R6, 'R4_szA_clD_rC':R4c, 'R5_shP_clD_rC':R5c, 'R6_shD_clD_rC':R6c}
-
-rules = {'R2_szP_clD_rC':R2c}
+# rules = {'R1_allC':R1,'R2_szP_rC':R2, 'R3_szD_rC':R3, 'R1_clD_rC':R1c,'R2_szP_clD_rC':R2c, 'R3_szD_clD_rC':R3c,# first_key = list(rules)[0] # first_val = list(rules.values())[0]
+#          'R4_szA_rC':R4, 'R5_shP_rC':R5, 'R6_shD_rC':R6, 'R4_szA_clD_rC':R4c, 'R5_shP_clD_rC':R5c, 'R6_shD_clD_rC':R6c}
 
 # good new rules (add arth color as noise)
 
@@ -286,24 +284,32 @@ rules = {'R2_szP_clD_rC':R2c}
 
 # maybe have SHAPE as progression to make noise (or make shapes harder)
 
+import raven_gen
+from raven_gen import Matrix, MatrixType, Ruleset, RuleType
+import matplotlib.pyplot as plt
+from PIL import Image
+import os
+import numpy as np
 
+R6 = Ruleset(size_rules=[RuleType.CONSTANT], # R6_shD_rC
+                  shape_rules=[RuleType.DISTRIBUTE_THREE],
+                  color_rules=[RuleType.CONSTANT],
+                  number_rules=[RuleType.CONSTANT],
+                  position_rules=[RuleType.CONSTANT])
 
-'R6_shD_clD_rC':R6
+rules = {'R6_shD_clD_rC':R6}
 
 
 # progression & ARTH doesn't make senes for color
 
 
 
-os.getcwd()
+# os.getcwd()
 # os.chdir('/Users/njudd/surfdrive/Shared/ravenStim/rpms_new_CT')
 
 # I could do a for look with 3 but I want different rule sets so I will just hardcode
 # os.mkdir('/Users/njudd/surfdrive/Shared/ravenStim/rpms_new_CT/layout1')
 # os.chdir('/Users/njudd/surfdrive/Shared/ravenStim/rpms_new_CT/layout1')
-
-
-os.chdir("/Users/njudd/Desktop/temp/")
 
 # this should stop rotation noise
 # raven_gen.attribute.UNI_VALUES = (False, False, False)
@@ -314,12 +320,15 @@ os.chdir("/Users/njudd/Desktop/temp/")
 
 # to do; try these all rules with color progression (makes no sense)
 
-os.chdir('/Users/njudd/surfdrive/Shared/ravenStim/rpm_take2')
+# os.chdir('/Users/njudd/surfdrive/Shared/ravenStim/rpm_take2')
 
 
 # layout_list = {"L1":0, "L2":1,"L3":2}
-layout_list = {"L1":0}
+# layout_list = {"L1":0}
 
+layout_list = {"L3":2}
+
+os.chdir("/Users/njudd/Desktop/temp/")
 for ll in range(len(layout_list)): # ll = layout loop index
     os.mkdir("Layout_" + list(layout_list)[ll])
     os.chdir("Layout_" + list(layout_list)[ll])
@@ -328,12 +337,11 @@ for ll in range(len(layout_list)): # ll = layout loop index
         os.mkdir("rpm" + list(rules)[w])
         os.chdir("rpm" + list(rules)[w])
         # now make a certian number of problems
-        for i in range(10):
+        stim_tries = 30
+        while stim_tries != 0:
             loopname = ("rpm" + list(rules)[w])
-            loopname += ("_P" + str(i + 1))  # plus one to get rid of Python indexing
-            # print("innerloop")
-            # print(i)
-            rpm = Matrix.make(list(MatrixType)[list(layout_list.values())[ll]], ruleset=list(rules.values())[w], n_alternatives=7)
+            loopname += ("_P" + str(stim_tries))  # plus one to get rid of Python indexing
+            rpm = Matrix.make(list(MatrixType)[list(layout_list.values())[ll]], ruleset=list(rules.values())[w], n_alternatives=2)
             os.mkdir(loopname)  # making a dir for the rpm stuff
             probname = (list(layout_list)[ll] + loopname) #making the problem name start with the type of layout
             rpm.save(loopname + "/.", probname)  # going in that dir, also naming the stimuli by the loopname
@@ -344,6 +352,7 @@ for ll in range(len(layout_list)): # ll = layout loop index
 
             with open("Global_output.txt", "a") as f:  # going into the folder and making an output per item
                 print(rpm.rules, file=f)
+            stim_tries -= 1
         os.chdir("..")
 
         # barf rules
