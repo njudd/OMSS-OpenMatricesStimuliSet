@@ -165,8 +165,7 @@ R6a = Ruleset(size_rules=[RuleType.CONSTANT], # R6_shD_rC
 ######## Take 2 on rules
 # since number & position are so linked we will generate with them both the same
 
-
-# this should stop rotation noise
+# this should stop rotation noise, but it seems to not???
 raven_gen.attribute.UNI_VALUES = (True, True, False, False)
 raven_gen.attribute.UNI_MIN = 0
 raven_gen.attribute.UNI_MAX = len(raven_gen.attribute.UNI_VALUES) - 1
@@ -197,15 +196,9 @@ R7_numA_posA_rC = Ruleset(size_rules=[RuleType.CONSTANT], # R7_numA_posA_rC
 
 
 
-######## are these okay...?
+######## ^^^^^are these okay...?
 
-# advanced for the other layouts
 
-R7_numP_rC = Ruleset(size_rules=[RuleType.CONSTANT],
-                  shape_rules=[RuleType.CONSTANT],
-                  color_rules=[RuleType.CONSTANT], # you have too many color options & not enough blocks for this too work
-                  number_rules=[RuleType.PROGRESSION], # if you only do single stimulis this isn't an issue
-                  position_rules=None)
 
 
 #####
@@ -239,57 +232,44 @@ R7_numP_rC = Ruleset(size_rules=[RuleType.CONSTANT],
 
 
 
-#### START playspace START ####
-# import raven_gen
-# from raven_gen import Matrix, MatrixType, Ruleset, RuleType, AttributeType
-# import os
-# import numpy as np
-#
-# #AttributeType.UNIFORMITY = (True)
-#
-# # Uniformity
-# raven_gen.attribute.UNI_VALUES = (False, False, False)
-# raven_gen.attribute.UNI_MIN = 0
-# raven_gen.attribute.UNI_MAX = len(raven_gen.attribute.UNI_VALUES) - 1
-#
-#
-# #raven_gen.component.Uniformity
-#
-#
-# # I think you need to get into the ComponentType (import this)
-# # there you should have component.uniformity.value...?
-#
-# #from raven_gen import Matrix, MatrixType, Ruleset, RuleType, ComponentType, LayoutType
-# #Matrix.attribute_bounds[MatrixType.FOUR_SHAPE][(ComponentType.NONE, LayoutType.GRID_FOUR)]
-#
-# os.chdir('/Users/njudd/Desktop/ct_ravGen')
-# ruleset_ct = Ruleset(number_rules=[RuleType.CONSTANT],
-#                      position_rules=[RuleType.CONSTANT], # called configuration?
-#                      shape_rules=[RuleType.CONSTANT],
-#                      size_rules=[RuleType.CONSTANT],
-#                      color_rules=[RuleType.CONSTANT]
-#                      )
-#
-# rpm_ct = Matrix.make(list(MatrixType)[1], ruleset=rct) #, n_alternatives=5
-# rpm_ct.save(path = ".", puzzle_name="ct_rav")
-# print(rpm_ct.rules)
-# #print(rpm_ct.rules, file="rules.txt")
-# print(rpm_ct)
-
-# there is some error depending on a certian combination...
-# remember they do special things for position & number (you should only rand the attribute table)
-#### END playspace  END ####
 
 ##### new rules
 # not sure if these are good
 # SEE NOTES!!!
 
-ruleset_12_mix_sizeProg_shapeDist3 = Ruleset(size_rules=[RuleType.PROGRESSION],
-                                             shape_rules=[RuleType.DISTRIBUTE_THREE])
+
+Rn1c = Ruleset(size_rules=[RuleType.PROGRESSION], # R6_shD_rC
+                  shape_rules=[RuleType.DISTRIBUTE_THREE],
+                  color_rules=[RuleType.DISTRIBUTE_THREE],
+                  number_rules=[RuleType.CONSTANT],
+                  position_rules=[RuleType.CONSTANT])
+
+Rn1a = Ruleset(size_rules=[RuleType.PROGRESSION], # R6_shD_rC
+                  shape_rules=[RuleType.DISTRIBUTE_THREE],
+                  color_rules=[RuleType.ARITHMETIC],
+                  number_rules=[RuleType.CONSTANT],
+                  position_rules=[RuleType.CONSTANT])
+
+Rn2c = Ruleset(size_rules=[RuleType.ARITHMETIC], # R6_shD_rC
+                  shape_rules=[RuleType.DISTRIBUTE_THREE],
+                  color_rules=[RuleType.DISTRIBUTE_THREE],
+                  number_rules=[RuleType.CONSTANT],
+                  position_rules=[RuleType.CONSTANT])
+
+Rn2a = Ruleset(size_rules=[RuleType.ARITHMETIC], # R6_shD_rC
+                  shape_rules=[RuleType.DISTRIBUTE_THREE],
+                  color_rules=[RuleType.ARITHMETIC],
+                  number_rules=[RuleType.CONSTANT],
+                  position_rules=[RuleType.CONSTANT])
+
+
+
+
+
 ruleset_13_mix_numArith_shapeProg = Ruleset(number_rules=[RuleType.ARITHMETIC],
                                              shape_rules=[RuleType.PROGRESSION])
-ruleset_14_mix_sizeArith_shapeConst = Ruleset(size_rules=[RuleType.ARITHMETIC],
-                                             shape_rules=[RuleType.CONSTANT])
+
+
 
 
 # using dicts instead of lists https://stackoverflow.com/questions/4326658/how-to-index-into-a-dictionary
