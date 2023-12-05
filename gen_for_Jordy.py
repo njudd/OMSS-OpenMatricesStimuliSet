@@ -61,6 +61,13 @@ R1c = Ruleset(size_rules=[RuleType.CONSTANT],
                   number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
                   position_rules=[RuleType.CONSTANT])
 
+R1a = Ruleset(size_rules=[RuleType.CONSTANT],
+                  shape_rules=[RuleType.CONSTANT],
+                  color_rules=[RuleType.ARITHMETIC],
+                  number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
+                  position_rules=[RuleType.CONSTANT])
+
+
 R2 = Ruleset(size_rules=[RuleType.PROGRESSION], # R2_szP_rC
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.CONSTANT],
@@ -70,6 +77,12 @@ R2 = Ruleset(size_rules=[RuleType.PROGRESSION], # R2_szP_rC
 R2c = Ruleset(size_rules=[RuleType.PROGRESSION], # R2_szP_rC
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.DISTRIBUTE_THREE],
+                  number_rules=[RuleType.DISTRIBUTE_THREE],
+                  position_rules=[RuleType.CONSTANT])
+
+R2a = Ruleset(size_rules=[RuleType.PROGRESSION], # R2_szP_rC
+                  shape_rules=[RuleType.CONSTANT],
+                  color_rules=[RuleType.ARITHMETIC],
                   number_rules=[RuleType.DISTRIBUTE_THREE],
                   position_rules=[RuleType.CONSTANT])
 
@@ -85,6 +98,13 @@ R3c = Ruleset(size_rules=[RuleType.DISTRIBUTE_THREE], # R3_szD_rC
                   number_rules=[RuleType.CONSTANT],
                   position_rules=[RuleType.CONSTANT])
 
+R3a = Ruleset(size_rules=[RuleType.DISTRIBUTE_THREE], # R3_szD_rC
+                  shape_rules=[RuleType.CONSTANT],
+                  color_rules=[RuleType.ARITHMETIC],
+                  number_rules=[RuleType.CONSTANT],
+                  position_rules=[RuleType.CONSTANT])
+
+
 R4 = Ruleset(size_rules=[RuleType.ARITHMETIC], # R4_szA_rC
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.CONSTANT],
@@ -96,6 +116,13 @@ R4c = Ruleset(size_rules=[RuleType.ARITHMETIC], # R4_szA_rC
                   color_rules=[RuleType.DISTRIBUTE_THREE],
                   number_rules=[RuleType.CONSTANT],
                   position_rules=[RuleType.CONSTANT])
+
+R4a = Ruleset(size_rules=[RuleType.ARITHMETIC], # R4_szA_rC
+                  shape_rules=[RuleType.CONSTANT],
+                  color_rules=[RuleType.ARITHMETIC],
+                  number_rules=[RuleType.CONSTANT],
+                  position_rules=[RuleType.CONSTANT])
+
 
 R5 = Ruleset(size_rules=[RuleType.CONSTANT], # R5_shP_rC
                   shape_rules=[RuleType.PROGRESSION],
@@ -109,6 +136,13 @@ R5c = Ruleset(size_rules=[RuleType.CONSTANT], # R5_shP_rC
                   number_rules=[RuleType.CONSTANT],
                   position_rules=[RuleType.CONSTANT])
 
+R5a = Ruleset(size_rules=[RuleType.CONSTANT], # R5_shP_rC
+                  shape_rules=[RuleType.PROGRESSION],
+                  color_rules=[RuleType.ARITHMETIC],
+                  number_rules=[RuleType.CONSTANT],
+                  position_rules=[RuleType.CONSTANT])
+
+
 R6 = Ruleset(size_rules=[RuleType.CONSTANT], # R6_shD_rC
                   shape_rules=[RuleType.DISTRIBUTE_THREE],
                   color_rules=[RuleType.CONSTANT],
@@ -121,6 +155,11 @@ R6c = Ruleset(size_rules=[RuleType.CONSTANT], # R6_shD_rC
                   number_rules=[RuleType.CONSTANT],
                   position_rules=[RuleType.CONSTANT])
 
+R6a = Ruleset(size_rules=[RuleType.CONSTANT], # R6_shD_rC
+                  shape_rules=[RuleType.DISTRIBUTE_THREE],
+                  color_rules=[RuleType.ARITHMETIC],
+                  number_rules=[RuleType.CONSTANT],
+                  position_rules=[RuleType.CONSTANT])
 
 
 ######## Take 2 on rules
@@ -267,6 +306,11 @@ ruleset_14_mix_sizeArith_shapeConst = Ruleset(size_rules=[RuleType.ARITHMETIC],
 # rules = {'R1_allC':R1,'R2_szP_rC':R2, 'R3_szD_rC':R3, 'R1_clD_rC':R1c,'R2_szP_clD_rC':R2c, 'R3_szD_clD_rC':R3c,# first_key = list(rules)[0] # first_val = list(rules.values())[0]
 #          'R4_szA_rC':R4, 'R5_shP_rC':R5, 'R6_shD_rC':R6, 'R4_szA_clD_rC':R4c, 'R5_shP_clD_rC':R5c, 'R6_shD_clD_rC':R6c}
 
+
+rules = {'R1_clA_rC':R1a,'R2_szP_clA_rC':R2a, 'R3_szD_clA_rC':R3a,# first_key = list(rules)[0] # first_val = list(rules.values())[0]
+         'R4_szA_clA_rC':R4a, 'R5_shP_clA_rC':R5a, 'R6_shD_clA_rC':R6a}
+
+
 # good new rules (add arth color as noise)
 
 # color dist 3 with other rules???
@@ -299,6 +343,7 @@ R6 = Ruleset(size_rules=[RuleType.CONSTANT], # R6_shD_rC
 
 rules = {'R6_shD_clD_rC':R6}
 
+rpm = Matrix.make(list(MatrixType)[2], ruleset=R6, n_alternatives=7)
 
 # progression & ARTH doesn't make senes for color
 
@@ -326,7 +371,7 @@ rules = {'R6_shD_clD_rC':R6}
 # layout_list = {"L1":0, "L2":1,"L3":2}
 # layout_list = {"L1":0}
 
-layout_list = {"L3":2}
+# layout_list = {"L2":1,"L3":2}
 
 os.chdir("/Users/njudd/Desktop/temp/")
 for ll in range(len(layout_list)): # ll = layout loop index
@@ -337,22 +382,31 @@ for ll in range(len(layout_list)): # ll = layout loop index
         os.mkdir("rpm" + list(rules)[w])
         os.chdir("rpm" + list(rules)[w])
         # now make a certian number of problems
-        stim_tries = 30
+        stim_tries = 10
         while stim_tries != 0:
             loopname = ("rpm" + list(rules)[w])
             loopname += ("_P" + str(stim_tries))  # plus one to get rid of Python indexing
-            rpm = Matrix.make(list(MatrixType)[list(layout_list.values())[ll]], ruleset=list(rules.values())[w], n_alternatives=2)
-            os.mkdir(loopname)  # making a dir for the rpm stuff
-            probname = (list(layout_list)[ll] + loopname) #making the problem name start with the type of layout
-            rpm.save(loopname + "/.", probname)  # going in that dir, also naming the stimuli by the loopname
 
-            with open(loopname + "/" + probname + "_output.txt",
-                      "a") as f:  # going into the folder and making an output per item
-                print(rpm.rules, file=f)
+            rpm = "starting empty"
+            try:
+                rpm = Matrix.make(list(MatrixType)[list(layout_list.values())[ll]], ruleset=list(rules.values())[w], n_alternatives=7)
+            except:
+                pass
 
-            with open("Global_output.txt", "a") as f:  # going into the folder and making an output per item
-                print(rpm.rules, file=f)
-            stim_tries -= 1
+            if type(rpm) != str:
+                os.mkdir(loopname)  # making a dir for the rpm stuff
+                probname = (list(layout_list)[ll] + loopname)  # making the problem name start with the type of layout
+                rpm.save(loopname + "/.", probname)  # going in that dir, also naming the stimuli by the loopname
+
+                with open(loopname + "/" + probname + "_output.txt",
+                          "a") as f:  # going into the folder and making an output per item
+                    print(rpm.rules, file=f)
+
+                with open("Global_output.txt", "a") as f:  # going into the folder and making an output per item
+                    print(rpm.rules, file=f)
+                stim_tries -= 1
+            else:
+                print("this is an error")
         os.chdir("..")
 
         # barf rules
