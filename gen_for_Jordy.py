@@ -149,12 +149,13 @@ R6a = Ruleset(size_rules=[RuleType.CONSTANT], # R6_shD_rC
                   number_rules=[RuleType.CONSTANT],
                   position_rules=[RuleType.CONSTANT])
 
+rules1 = {'R1_clD_rC':R1d,'R2_szP_clD_rC':R2d, 'R3_szD_clD_rC':R3d, 'R4_szA_clD_rC':R4d, 'R5_shP_clD_rC':R5d, 'R6_shD_clD_rC':R6d,
+          'R1_clA_rC':R1a,'R2_szP_clA_rC':R2a, 'R3_szD_clA_rC':R3a, 'R4_szA_clA_rC':R4a, 'R5_shP_clA_rC':R5a, 'R6_shD_clA_rC':R6a}
+
 #### rules for layouts 2 & 3
 
 
 # I think these will work for layout 1 as well!
-
-
 R7d = Ruleset(size_rules=[RuleType.PROGRESSION], # R7_szP_shD
                   shape_rules=[RuleType.DISTRIBUTE_THREE],
                   color_rules=[RuleType.DISTRIBUTE_THREE],
@@ -172,11 +173,14 @@ R8d = Ruleset(size_rules=[RuleType.ARITHMETIC], # R8_szA_shD
                   color_rules=[RuleType.DISTRIBUTE_THREE],
                   number_rules=[RuleType.CONSTANT],
                   position_rules=[RuleType.CONSTANT])
-R8a = Ruleset(size_rules=[RuleType.ARITHMETIC], # R8_szA_shD
+R8a = Ruleset(size_rules=[RuleType.ARITHMETIC],
                   shape_rules=[RuleType.DISTRIBUTE_THREE],
                   color_rules=[RuleType.ARITHMETIC],
                   number_rules=[RuleType.CONSTANT],
                   position_rules=[RuleType.CONSTANT])
+
+rules2 = {'R7_szP_shD_clD_rA':R7d,'R7_szP_shD_clA_rA':R7a, 'R8_szA_shD_clD_rA':R8d, 'R8_szA_shD_clA_rA':R8a}
+
 
 # rules with number and position yet matching
 R9 = Ruleset(size_rules=[RuleType.CONSTANT], # R9_numP_posP_rC
@@ -199,6 +203,7 @@ R11 = Ruleset(size_rules=[RuleType.CONSTANT], # R11_numA_posA_rC
                   number_rules=[RuleType.ARITHMETIC],
                   position_rules=[RuleType.ARITHMETIC])
 
+rules_numPos = {'R9_numP_posP_rC':R9, 'R10_numD_posD_rC':R10, 'R11_numA_posA_rC':R11}
 
 # rules with number and position matching plus dist 3 size & shape
 
@@ -212,10 +217,6 @@ R11 = Ruleset(size_rules=[RuleType.CONSTANT], # R11_numA_posA_rC
 raven_gen.attribute.UNI_VALUES = (True, True, False, False)
 raven_gen.attribute.UNI_MIN = 0
 raven_gen.attribute.UNI_MAX = len(raven_gen.attribute.UNI_VALUES) - 1
-
-
-
-
 
 
 ######## ^^^^^are these okay...?
@@ -261,11 +262,6 @@ raven_gen.attribute.UNI_MAX = len(raven_gen.attribute.UNI_VALUES) - 1
 
 
 
-
-
-
-
-
 ruleset_13_mix_numArith_shapeProg = Ruleset(number_rules=[RuleType.ARITHMETIC],
                                              shape_rules=[RuleType.PROGRESSION])
 
@@ -277,8 +273,6 @@ ruleset_13_mix_numArith_shapeProg = Ruleset(number_rules=[RuleType.ARITHMETIC],
 #          'R4_szA_rC':R4, 'R5_shP_rC':R5, 'R6_shD_rC':R6, 'R4_szA_clD_rC':R4d, 'R5_shP_clD_rC':R5d, 'R6_shD_clD_rC':R6d}
 
 
-rules_clA = {'R1_clA_rC':R1a,'R2_szP_clA_rC':R2a, 'R3_szD_clA_rC':R3a,# first_key = list(rules)[0] # first_val = list(rules.values())[0]
-         'R4_szA_clA_rC':R4a, 'R5_shP_clA_rC':R5a, 'R6_shD_clA_rC':R6a}
 
 
 # good new rules (add arth color as noise)
@@ -341,8 +335,11 @@ rpm = Matrix.make(list(MatrixType)[2], ruleset=R6, n_alternatives=7)
 # layout_list = {"L1":0, "L2":1,"L3":2}
 # layout_list = {"L1":0}
 
-# layout_list = {"L2":1,"L3":2}
+rules = {}
+rules = {**rules1, **rules2} #omfg python 3.5 ftw!!
 
+layout_list = {"L2":1,"L3":2}
+rules = rules_2ndset
 os.chdir("/Users/njudd/Desktop/temp/")
 for ll in range(len(layout_list)): # ll = layout loop index
     os.mkdir("Layout_" + list(layout_list)[ll])
