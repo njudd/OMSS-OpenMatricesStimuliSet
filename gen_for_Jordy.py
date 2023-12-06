@@ -478,56 +478,6 @@ for ll in range(len(layout_list)): # ll = layout loop index
 
 
 
-###########################
-
-stim_triesPOS = 10
-while stim_triesPOS != 0:
-    # loopname = ("rpm" + list(rules3)[w] + "xPOS")
-    # loopname += ("_P" + str(stim_triesPOS))  # plus one to get rid of Python indexing
-
-    rpm = "starting empty"
-    try:
-        rpm = Matrix.make(list(MatrixType)[1], ruleset=list(rules3.values())[1],n_alternatives=7)
-    except:
-        pass
-
-    if type(rpm) != str:
-        print("step1")
-        if print("POSITION" in str(rpm.rules.components_rules[0])) == "True":
-            # os.mkdir(loopname)  # making a dir for the rpm stuff
-            # probname = (list(layout_list)[ll] + loopname)  # making the problem name start with the type of layout
-            # rpm.save(loopname + "/.", probname)  # going in that dir, also naming the stimuli by the loopname
-            print("step2: we are here & it is working!")
-            # with open(loopname + "/" + probname + "_output.txt",
-            #           "a") as f:  # going into the folder and making an output per item
-            #     print(rpm.rules, file=f)
-            #
-            # with open("Global_output.txt", "a") as f:  # going into the folder and making an output per item
-            #     print(rpm.rules, file=f)
-            stim_triesPOS -= 1
-            print(stim_triesPOS)
-
-    else:
-        print("this is an error")
-
-
-if "POSITION" in str(rpm.rules.components_rules[0]):
-    print("ofc this works")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ###########                         ###########
 ########### known issues!!!!!!!!!!  ###########
