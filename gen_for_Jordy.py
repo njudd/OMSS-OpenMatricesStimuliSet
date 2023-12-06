@@ -154,7 +154,6 @@ rules1 = {'R1_clD_rC':R1d,'R2_szP_clD_rC':R2d, 'R3_szD_clD_rC':R3d, 'R4_szA_clD_
 
 #### rules for layouts 2 & 3
 
-
 # I think these will work for layout 1 as well!
 R7d = Ruleset(size_rules=[RuleType.PROGRESSION], # R7_szP_shD
                   shape_rules=[RuleType.DISTRIBUTE_THREE],
@@ -179,44 +178,54 @@ R8a = Ruleset(size_rules=[RuleType.ARITHMETIC],
                   number_rules=[RuleType.CONSTANT],
                   position_rules=[RuleType.CONSTANT])
 
-rules2 = {'R7_szP_shD_clD_rA':R7d,'R7_szP_shD_clA_rA':R7a, 'R8_szA_shD_clD_rA':R8d, 'R8_szA_shD_clA_rA':R8a}
+rules2 = {'R7_szP_shD_clD_rA':R7d,'R7_szP_shD_clA_rA':R7a,
+          'R8_szA_shD_clD_rA':R8d, 'R8_szA_shD_clA_rA':R8a}
 
 
 # rules with number and position yet matching
-R9 = Ruleset(size_rules=[RuleType.CONSTANT], # R9_numP_posP_rC
+R9d = Ruleset(size_rules=[RuleType.CONSTANT], # R9_numP_posP
                   shape_rules=[RuleType.CONSTANT],
-                  color_rules=[RuleType.CONSTANT],
+                  color_rules=[RuleType.DISTRIBUTE_THREE],
+                  number_rules=[RuleType.PROGRESSION],
+                  position_rules=[RuleType.PROGRESSION])
+R9a = Ruleset(size_rules=[RuleType.CONSTANT],
+                  shape_rules=[RuleType.CONSTANT],
+                  color_rules=[RuleType.ARITHMETIC],
                   number_rules=[RuleType.PROGRESSION],
                   position_rules=[RuleType.PROGRESSION])
 
 
-R10 = Ruleset(size_rules=[RuleType.CONSTANT], # R10_numD_posD_rC
+R10d = Ruleset(size_rules=[RuleType.CONSTANT], # R10_numD_posD
                   shape_rules=[RuleType.CONSTANT],
-                  color_rules=[RuleType.CONSTANT],
+                  color_rules=[RuleType.DISTRIBUTE_THREE],
+                  number_rules=[RuleType.DISTRIBUTE_THREE],
+                  position_rules=[RuleType.DISTRIBUTE_THREE])
+R10a = Ruleset(size_rules=[RuleType.CONSTANT],
+                  shape_rules=[RuleType.CONSTANT],
+                  color_rules=[RuleType.ARITHMETIC],
                   number_rules=[RuleType.DISTRIBUTE_THREE],
                   position_rules=[RuleType.DISTRIBUTE_THREE])
 
 
-R11 = Ruleset(size_rules=[RuleType.CONSTANT], # R11_numA_posA_rC
+R11d = Ruleset(size_rules=[RuleType.CONSTANT], # R11_numA_posA
                   shape_rules=[RuleType.CONSTANT],
-                  color_rules=[RuleType.CONSTANT],
+                  color_rules=[RuleType.DISTRIBUTE_THREE],
+                  number_rules=[RuleType.ARITHMETIC],
+                  position_rules=[RuleType.ARITHMETIC])
+R11a = Ruleset(size_rules=[RuleType.CONSTANT],
+                  shape_rules=[RuleType.CONSTANT],
+                  color_rules=[RuleType.ARITHMETIC],
                   number_rules=[RuleType.ARITHMETIC],
                   position_rules=[RuleType.ARITHMETIC])
 
-rules_numPos = {'R9_numP_posP_rC':R9, 'R10_numD_posD_rC':R10, 'R11_numA_posA_rC':R11}
+rules3 = {'R9_xP_clD':R9d, 'R9_xP_clA':R9a,
+          'R10_xD_clD':R10d, 'R10_xD_clA':R10a,
+          'R11_xA_clD':R11d, 'R11_xA_clA':R11a}
 
 # rules with number and position matching plus dist 3 size & shape
 
 # just try with color constant first...
 
-
-######## Take 2 on rules
-# since number & position are so linked we will generate with them both the same
-
-# this should stop rotation noise, but it seems to not???
-raven_gen.attribute.UNI_VALUES = (True, True, False, False)
-raven_gen.attribute.UNI_MIN = 0
-raven_gen.attribute.UNI_MAX = len(raven_gen.attribute.UNI_VALUES) - 1
 
 
 ######## ^^^^^are these okay...?
@@ -302,12 +311,14 @@ import numpy as np
 R6 = Ruleset(size_rules=[RuleType.CONSTANT], # R6_shD_rC
                   shape_rules=[RuleType.DISTRIBUTE_THREE],
                   color_rules=[RuleType.CONSTANT],
-                  number_rules=[RuleType.CONSTANT],
-                  position_rules=[RuleType.CONSTANT])
+                  number_rules=[RuleType.DISTRIBUTE_THREE],
+                  position_rules=[RuleType.DISTRIBUTE_THREE])
 
 rules = {'R6_shD_clD_rC':R6}
 
 rpm = Matrix.make(list(MatrixType)[2], ruleset=R6, n_alternatives=7)
+print("POSITION" in str(rpm.rules.components_rules[0]))
+print("NUMBER" in str(rpm.rules.components_rules[0]))
 
 # progression & ARTH doesn't make senes for color
 
@@ -383,7 +394,151 @@ for ll in range(len(layout_list)): # ll = layout loop index
     os.chdir("..")
 
 
+###########                                             ###########
+###########  Making sure it chooses POSITION or NUMBER  ###########
+###########                                             ###########
 
+
+# so I want to do the rules times 2; so I end up with R9_numP & R9_posP
+# using rules3
+
+layout_list = {"L2":1,"L3":2}
+os.chdir("/Users/njudd/Desktop/temp/")
+for ll in range(len(layout_list)): # ll = layout loop index
+    os.mkdir("Layout_" + list(layout_list)[ll])
+    os.chdir("Layout_" + list(layout_list)[ll])
+    # now go over the vector of rules
+    for w in range(len(rules3)):
+        os.mkdir("rpm" + list(rules3)[w])
+        os.chdir("rpm" + list(rules3)[w])
+        stim_triesPOS = 10
+        stim_triesNUM = 10
+        # now make a certian number of problems
+        while stim_triesPOS != 0:
+            loopname = ("rpm" + list(rules3)[w] + "_xPOS")
+            loopname += ("_P" + str(stim_triesPOS))  # plus one to get rid of Python indexing
+
+            rpm = "starting empty"
+            try:
+                rpm = Matrix.make(list(MatrixType)[list(layout_list.values())[ll]],
+                                  ruleset=list(rules3.values())[w], n_alternatives=7)
+            except:
+                pass
+
+            if type(rpm) != str:
+                if "POSITION" in str(rpm.rules.components_rules[0]):
+                    os.mkdir(loopname)  # making a dir for the rpm stuff
+                    probname = (list(layout_list)[ll] + loopname)  # making the problem name start with the type of layout
+                    rpm.save(loopname + "/.", probname)  # going in that dir, also naming the stimuli by the loopname
+
+                    with open(loopname + "/" + probname + "_output.txt",
+                                "a") as f:  # going into the folder and making an output per item
+                        print(rpm.rules, file=f)
+
+                    with open("Global_output.txt", "a") as f:  # going into the folder and making an output per item
+                        print(rpm.rules, file=f)
+                    stim_triesPOS -= 1
+
+            else:
+                print("this is an error")
+        while stim_triesNUM != 0:
+            loopname = ("rpm" + list(rules3)[w] + "_xNUM")
+            loopname += ("_P" + str(stim_triesNUM))  # plus one to get rid of Python indexing
+
+            rpm = "starting empty"
+            try:
+                rpm = Matrix.make(list(MatrixType)[list(layout_list.values())[ll]], ruleset=list(rules3.values())[w],
+                                  n_alternatives=7)
+            except:
+                pass
+
+            if type(rpm) != str:
+                if "NUMBER" in str(rpm.rules.components_rules[0]):
+                    os.mkdir(loopname)  # making a dir for the rpm stuff
+                    probname = (list(layout_list)[ll] + loopname)  # making the problem name start with the type of layout
+                    rpm.save(loopname + "/.", probname)  # going in that dir, also naming the stimuli by the loopname
+
+                    with open(loopname + "/" + probname + "_output.txt",
+                            "a") as f:  # going into the folder and making an output per item
+                        print(rpm.rules, file=f)
+
+                    with open("Global_output.txt", "a") as f:  # going into the folder and making an output per item
+                        print(rpm.rules, file=f)
+                    stim_triesNUM -= 1
+
+            else:
+                print("this is an error")
+        os.chdir("..")
+
+        # barf rules
+        with open("Global_rules.txt", "a") as f:  # going into the folder and making an output per item
+            print(list(rules3)[w], file=f)
+
+    os.chdir("..")
+
+
+
+###########################
+
+stim_triesPOS = 10
+while stim_triesPOS != 0:
+    # loopname = ("rpm" + list(rules3)[w] + "xPOS")
+    # loopname += ("_P" + str(stim_triesPOS))  # plus one to get rid of Python indexing
+
+    rpm = "starting empty"
+    try:
+        rpm = Matrix.make(list(MatrixType)[1], ruleset=list(rules3.values())[1],n_alternatives=7)
+    except:
+        pass
+
+    if type(rpm) != str:
+        print("step1")
+        if print("POSITION" in str(rpm.rules.components_rules[0])) == "True":
+            # os.mkdir(loopname)  # making a dir for the rpm stuff
+            # probname = (list(layout_list)[ll] + loopname)  # making the problem name start with the type of layout
+            # rpm.save(loopname + "/.", probname)  # going in that dir, also naming the stimuli by the loopname
+            print("step2: we are here & it is working!")
+            # with open(loopname + "/" + probname + "_output.txt",
+            #           "a") as f:  # going into the folder and making an output per item
+            #     print(rpm.rules, file=f)
+            #
+            # with open("Global_output.txt", "a") as f:  # going into the folder and making an output per item
+            #     print(rpm.rules, file=f)
+            stim_triesPOS -= 1
+            print(stim_triesPOS)
+
+    else:
+        print("this is an error")
+
+
+if "POSITION" in str(rpm.rules.components_rules[0]):
+    print("ofc this works")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+###########                         ###########
+########### known issues!!!!!!!!!!  ###########
+###########                         ###########
+
+########### 1
+# the biggest is when you try to make more than alternative>3 the function just breaks
+# I beleive this is becausae of an error when itterating thru alternatives
+# yet the whole handingly of alternatives is subpar and not 'human' friendly
+
+# Example code
 # with 3 alternatives it seems fine but with 5 it starts fucking up around 2nd layout
 # it seems like with more alternatives this rare bug pops up
 
@@ -394,12 +549,19 @@ for ll in range(len(layout_list)): # ll = layout loop index
 # plt.imshow(ct.ans_img, cmap='gray')
 # plt.show()
 
+########### 2
 
+# this should stop rotation noise, but it seems to not???
+# raven_gen.attribute.UNI_VALUES = (True, True, False, False)
+# raven_gen.attribute.UNI_MIN = 0
+# raven_gen.attribute.UNI_MAX = len(raven_gen.attribute.UNI_VALUES) - 1
 
+########### 3
 
-
-
-##### go into the rabbit hole of position = NA.
+# it doesn't seem posible to feed NA's to the rules arguemnt
+# color, size and type need to have one always...
+# yet it would be nice functionality to have an arg like num = T or pos = T which gives that rules
+# similar to the look I make to catch them
 
 
 
