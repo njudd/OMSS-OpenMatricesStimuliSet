@@ -54,13 +54,11 @@ R1 = Ruleset(size_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.CONSTANT],
                   number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
                   position_rules=[RuleType.CONSTANT])
-
-R1c = Ruleset(size_rules=[RuleType.CONSTANT],
+R1d = Ruleset(size_rules=[RuleType.CONSTANT],
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.DISTRIBUTE_THREE],
                   number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
                   position_rules=[RuleType.CONSTANT])
-
 R1a = Ruleset(size_rules=[RuleType.CONSTANT],
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.ARITHMETIC],
@@ -73,13 +71,11 @@ R2 = Ruleset(size_rules=[RuleType.PROGRESSION], # R2_szP_rC
                   color_rules=[RuleType.CONSTANT],
                   number_rules=[RuleType.CONSTANT],
                   position_rules=[RuleType.CONSTANT])
-
-R2c = Ruleset(size_rules=[RuleType.PROGRESSION], # R2_szP_rC
+R2d = Ruleset(size_rules=[RuleType.PROGRESSION], # R2_szP_rC
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.DISTRIBUTE_THREE],
                   number_rules=[RuleType.DISTRIBUTE_THREE],
                   position_rules=[RuleType.CONSTANT])
-
 R2a = Ruleset(size_rules=[RuleType.PROGRESSION], # R2_szP_rC
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.ARITHMETIC],
@@ -91,13 +87,11 @@ R3 = Ruleset(size_rules=[RuleType.DISTRIBUTE_THREE], # R3_szD_rC
                   color_rules=[RuleType.CONSTANT],
                   number_rules=[RuleType.CONSTANT],
                   position_rules=[RuleType.CONSTANT])
-
-R3c = Ruleset(size_rules=[RuleType.DISTRIBUTE_THREE], # R3_szD_rC
+R3d = Ruleset(size_rules=[RuleType.DISTRIBUTE_THREE], # R3_szD_rC
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.DISTRIBUTE_THREE],
                   number_rules=[RuleType.CONSTANT],
                   position_rules=[RuleType.CONSTANT])
-
 R3a = Ruleset(size_rules=[RuleType.DISTRIBUTE_THREE], # R3_szD_rC
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.ARITHMETIC],
@@ -110,13 +104,11 @@ R4 = Ruleset(size_rules=[RuleType.ARITHMETIC], # R4_szA_rC
                   color_rules=[RuleType.CONSTANT],
                   number_rules=[RuleType.CONSTANT],
                   position_rules=[RuleType.CONSTANT])
-
-R4c = Ruleset(size_rules=[RuleType.ARITHMETIC], # R4_szA_rC
+R4d = Ruleset(size_rules=[RuleType.ARITHMETIC], # R4_szA_rC
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.DISTRIBUTE_THREE],
                   number_rules=[RuleType.CONSTANT],
                   position_rules=[RuleType.CONSTANT])
-
 R4a = Ruleset(size_rules=[RuleType.ARITHMETIC], # R4_szA_rC
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.ARITHMETIC],
@@ -129,13 +121,11 @@ R5 = Ruleset(size_rules=[RuleType.CONSTANT], # R5_shP_rC
                   color_rules=[RuleType.CONSTANT],
                   number_rules=[RuleType.CONSTANT],
                   position_rules=[RuleType.CONSTANT])
-
-R5c = Ruleset(size_rules=[RuleType.CONSTANT], # R5_shP_rC
+R5d = Ruleset(size_rules=[RuleType.CONSTANT], # R5_shP_rC
                   shape_rules=[RuleType.PROGRESSION],
                   color_rules=[RuleType.DISTRIBUTE_THREE],
                   number_rules=[RuleType.CONSTANT],
                   position_rules=[RuleType.CONSTANT])
-
 R5a = Ruleset(size_rules=[RuleType.CONSTANT], # R5_shP_rC
                   shape_rules=[RuleType.PROGRESSION],
                   color_rules=[RuleType.ARITHMETIC],
@@ -148,18 +138,71 @@ R6 = Ruleset(size_rules=[RuleType.CONSTANT], # R6_shD_rC
                   color_rules=[RuleType.CONSTANT],
                   number_rules=[RuleType.CONSTANT],
                   position_rules=[RuleType.CONSTANT])
-
-R6c = Ruleset(size_rules=[RuleType.CONSTANT], # R6_shD_rC
+R6d = Ruleset(size_rules=[RuleType.CONSTANT], # R6_shD_rC
                   shape_rules=[RuleType.DISTRIBUTE_THREE],
                   color_rules=[RuleType.DISTRIBUTE_THREE],
                   number_rules=[RuleType.CONSTANT],
                   position_rules=[RuleType.CONSTANT])
-
 R6a = Ruleset(size_rules=[RuleType.CONSTANT], # R6_shD_rC
                   shape_rules=[RuleType.DISTRIBUTE_THREE],
                   color_rules=[RuleType.ARITHMETIC],
                   number_rules=[RuleType.CONSTANT],
                   position_rules=[RuleType.CONSTANT])
+
+#### rules for layouts 2 & 3
+
+
+# I think these will work for layout 1 as well!
+
+
+R7d = Ruleset(size_rules=[RuleType.PROGRESSION], # R7_szP_shD
+                  shape_rules=[RuleType.DISTRIBUTE_THREE],
+                  color_rules=[RuleType.DISTRIBUTE_THREE],
+                  number_rules=[RuleType.CONSTANT],
+                  position_rules=[RuleType.CONSTANT])
+R7a = Ruleset(size_rules=[RuleType.PROGRESSION],
+                  shape_rules=[RuleType.DISTRIBUTE_THREE],
+                  color_rules=[RuleType.ARITHMETIC],
+                  number_rules=[RuleType.CONSTANT],
+                  position_rules=[RuleType.CONSTANT])
+
+
+R8d = Ruleset(size_rules=[RuleType.ARITHMETIC], # R8_szA_shD
+                  shape_rules=[RuleType.DISTRIBUTE_THREE],
+                  color_rules=[RuleType.DISTRIBUTE_THREE],
+                  number_rules=[RuleType.CONSTANT],
+                  position_rules=[RuleType.CONSTANT])
+R8a = Ruleset(size_rules=[RuleType.ARITHMETIC], # R8_szA_shD
+                  shape_rules=[RuleType.DISTRIBUTE_THREE],
+                  color_rules=[RuleType.ARITHMETIC],
+                  number_rules=[RuleType.CONSTANT],
+                  position_rules=[RuleType.CONSTANT])
+
+# rules with number and position yet matching
+R9 = Ruleset(size_rules=[RuleType.CONSTANT], # R9_numP_posP_rC
+                  shape_rules=[RuleType.CONSTANT],
+                  color_rules=[RuleType.CONSTANT],
+                  number_rules=[RuleType.PROGRESSION],
+                  position_rules=[RuleType.PROGRESSION])
+
+
+R10 = Ruleset(size_rules=[RuleType.CONSTANT], # R10_numD_posD_rC
+                  shape_rules=[RuleType.CONSTANT],
+                  color_rules=[RuleType.CONSTANT],
+                  number_rules=[RuleType.DISTRIBUTE_THREE],
+                  position_rules=[RuleType.DISTRIBUTE_THREE])
+
+
+R11 = Ruleset(size_rules=[RuleType.CONSTANT], # R11_numA_posA_rC
+                  shape_rules=[RuleType.CONSTANT],
+                  color_rules=[RuleType.CONSTANT],
+                  number_rules=[RuleType.ARITHMETIC],
+                  position_rules=[RuleType.ARITHMETIC])
+
+
+# rules with number and position matching plus dist 3 size & shape
+
+# just try with color constant first...
 
 
 ######## Take 2 on rules
@@ -169,27 +212,6 @@ R6a = Ruleset(size_rules=[RuleType.CONSTANT], # R6_shD_rC
 raven_gen.attribute.UNI_VALUES = (True, True, False, False)
 raven_gen.attribute.UNI_MIN = 0
 raven_gen.attribute.UNI_MAX = len(raven_gen.attribute.UNI_VALUES) - 1
-
-
-
-
-R7_numP_posP_rC = Ruleset(size_rules=[RuleType.CONSTANT], # R7_numP_posP_rC
-                  shape_rules=[RuleType.CONSTANT],
-                  color_rules=[RuleType.CONSTANT], # you have too many color options & not enough blocks for this too work
-                  number_rules=[RuleType.PROGRESSION], # if you only do single stimulis this isn't an issue
-                  position_rules=[RuleType.PROGRESSION])
-
-R7_numD_posD_rC = Ruleset(size_rules=[RuleType.CONSTANT], # R7_numD_posD_rC
-                  shape_rules=[RuleType.CONSTANT],
-                  color_rules=[RuleType.CONSTANT], # you have too many color options & not enough blocks for this too work
-                  number_rules=[RuleType.DISTRIBUTE_THREE], # if you only do single stimulis this isn't an issue
-                  position_rules=[RuleType.DISTRIBUTE_THREE])
-
-R7_numA_posA_rC = Ruleset(size_rules=[RuleType.CONSTANT], # R7_numA_posA_rC
-                  shape_rules=[RuleType.CONSTANT],
-                  color_rules=[RuleType.CONSTANT], # you have too many color options & not enough blocks for this too work
-                  number_rules=[RuleType.ARITHMETIC], # if you only do single stimulis this isn't an issue
-                  position_rules=[RuleType.ARITHMETIC])
 
 
 
@@ -238,29 +260,7 @@ R7_numA_posA_rC = Ruleset(size_rules=[RuleType.CONSTANT], # R7_numA_posA_rC
 # SEE NOTES!!!
 
 
-Rn1c = Ruleset(size_rules=[RuleType.PROGRESSION], # R6_shD_rC
-                  shape_rules=[RuleType.DISTRIBUTE_THREE],
-                  color_rules=[RuleType.DISTRIBUTE_THREE],
-                  number_rules=[RuleType.CONSTANT],
-                  position_rules=[RuleType.CONSTANT])
 
-Rn1a = Ruleset(size_rules=[RuleType.PROGRESSION], # R6_shD_rC
-                  shape_rules=[RuleType.DISTRIBUTE_THREE],
-                  color_rules=[RuleType.ARITHMETIC],
-                  number_rules=[RuleType.CONSTANT],
-                  position_rules=[RuleType.CONSTANT])
-
-Rn2c = Ruleset(size_rules=[RuleType.ARITHMETIC], # R6_shD_rC
-                  shape_rules=[RuleType.DISTRIBUTE_THREE],
-                  color_rules=[RuleType.DISTRIBUTE_THREE],
-                  number_rules=[RuleType.CONSTANT],
-                  position_rules=[RuleType.CONSTANT])
-
-Rn2a = Ruleset(size_rules=[RuleType.ARITHMETIC], # R6_shD_rC
-                  shape_rules=[RuleType.DISTRIBUTE_THREE],
-                  color_rules=[RuleType.ARITHMETIC],
-                  number_rules=[RuleType.CONSTANT],
-                  position_rules=[RuleType.CONSTANT])
 
 
 
@@ -273,11 +273,11 @@ ruleset_13_mix_numArith_shapeProg = Ruleset(number_rules=[RuleType.ARITHMETIC],
 
 
 # using dicts instead of lists https://stackoverflow.com/questions/4326658/how-to-index-into-a-dictionary
-# rules = {'R1_allC':R1,'R2_szP_rC':R2, 'R3_szD_rC':R3, 'R1_clD_rC':R1c,'R2_szP_clD_rC':R2c, 'R3_szD_clD_rC':R3c,# first_key = list(rules)[0] # first_val = list(rules.values())[0]
-#          'R4_szA_rC':R4, 'R5_shP_rC':R5, 'R6_shD_rC':R6, 'R4_szA_clD_rC':R4c, 'R5_shP_clD_rC':R5c, 'R6_shD_clD_rC':R6c}
+# rules = {'R1_allC':R1,'R2_szP_rC':R2, 'R3_szD_rC':R3, 'R1_clD_rC':R1d,'R2_szP_clD_rC':R2d, 'R3_szD_clD_rC':R3d,# first_key = list(rules)[0] # first_val = list(rules.values())[0]
+#          'R4_szA_rC':R4, 'R5_shP_rC':R5, 'R6_shD_rC':R6, 'R4_szA_clD_rC':R4d, 'R5_shP_clD_rC':R5d, 'R6_shD_clD_rC':R6d}
 
 
-rules = {'R1_clA_rC':R1a,'R2_szP_clA_rC':R2a, 'R3_szD_clA_rC':R3a,# first_key = list(rules)[0] # first_val = list(rules.values())[0]
+rules_clA = {'R1_clA_rC':R1a,'R2_szP_clA_rC':R2a, 'R3_szD_clA_rC':R3a,# first_key = list(rules)[0] # first_val = list(rules.values())[0]
          'R4_szA_clA_rC':R4a, 'R5_shP_clA_rC':R5a, 'R6_shD_clA_rC':R6a}
 
 
