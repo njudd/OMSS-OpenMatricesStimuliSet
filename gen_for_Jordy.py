@@ -414,10 +414,10 @@ for ll in range(len(layout_list)): # ll = layout loop index
         stim_triesPOS = 10
         stim_triesNUM = 10
         # now make a certian number of problems
-        while stim_triesPOS != 0:
-            loopname = ("rpm" + list(rules3)[w] + "_xPOS")
-            loopname += ("_P" + str(stim_triesPOS))  # plus one to get rid of Python indexing
 
+        counter = stim_triesPOS + stim_triesNUM
+        while counter > 0:
+            # get around the error
             rpm = "starting empty"
             try:
                 rpm = Matrix.make(list(MatrixType)[list(layout_list.values())[ll]],
@@ -425,8 +425,10 @@ for ll in range(len(layout_list)): # ll = layout loop index
             except:
                 pass
 
-            if type(rpm) != str:
-                if "POSITION" in str(rpm.rules.components_rules[0]):
+            if type(rpm) != str: # if it is actually a rpm obj
+                if "POSITION" in str(rpm.rules.components_rules[0]) and stim_triesPOS > 0:
+                    loopname = ("rpm" + list(rules3)[w] + "_xPOS")
+                    loopname += ("_P" + str(stim_triesPOS))  # plus one to get rid of Python indexing
                     os.mkdir(loopname)  # making a dir for the rpm stuff
                     probname = (list(layout_list)[ll] + loopname)  # making the problem name start with the type of layout
                     rpm.save(loopname + "/.", probname)  # going in that dir, also naming the stimuli by the loopname
@@ -438,22 +440,9 @@ for ll in range(len(layout_list)): # ll = layout loop index
                     with open("Global_output.txt", "a") as f:  # going into the folder and making an output per item
                         print(rpm.rules, file=f)
                     stim_triesPOS -= 1
-
-            else:
-                print("this is an error")
-        while stim_triesNUM != 0:
-            loopname = ("rpm" + list(rules3)[w] + "_xNUM")
-            loopname += ("_P" + str(stim_triesNUM))  # plus one to get rid of Python indexing
-
-            rpm = "starting empty"
-            try:
-                rpm = Matrix.make(list(MatrixType)[list(layout_list.values())[ll]], ruleset=list(rules3.values())[w],
-                                  n_alternatives=7)
-            except:
-                pass
-
-            if type(rpm) != str:
-                if "NUMBER" in str(rpm.rules.components_rules[0]):
+                elif "NUMBER" in str(rpm.rules.components_rules[0]) and stim_triesNUM > 0:
+                    loopname = ("rpm" + list(rules3)[w] + "_xNUM")
+                    loopname += ("_P" + str(stim_triesNUM))  # plus one to get rid of Python indexing
                     os.mkdir(loopname)  # making a dir for the rpm stuff
                     probname = (list(layout_list)[ll] + loopname)  # making the problem name start with the type of layout
                     rpm.save(loopname + "/.", probname)  # going in that dir, also naming the stimuli by the loopname
@@ -465,19 +454,17 @@ for ll in range(len(layout_list)): # ll = layout loop index
                     with open("Global_output.txt", "a") as f:  # going into the folder and making an output per item
                         print(rpm.rules, file=f)
                     stim_triesNUM -= 1
-
+                else:
+                    print("needing more of one type")
             else:
                 print("this is an error")
-        os.chdir("..")
-
+            counter = stim_triesPOS + stim_triesNUM
+        os.chdir("..")  # going back in rules dir
         # barf rules
         with open("Global_rules.txt", "a") as f:  # going into the folder and making an output per item
             print(list(rules3)[w], file=f)
 
-    os.chdir("..")
-
-
-
+    os.chdir("..") # going back in layout dir
 
 ###########                         ###########
 ########### known issues!!!!!!!!!!  ###########
