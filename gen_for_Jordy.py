@@ -218,9 +218,27 @@ R11a = Ruleset(size_rules=[RuleType.CONSTANT],
                   number_rules=[RuleType.ARITHMETIC],
                   position_rules=[RuleType.ARITHMETIC])
 
+# now making it harder by messing with size & shape as well
+# inspired by rules R7 & R8
+
+R12a = Ruleset(size_rules=[RuleType.PROGRESSION],
+                  shape_rules=[RuleType.DISTRIBUTE_THREE],
+                  color_rules=[RuleType.ARITHMETIC],
+                  number_rules=[RuleType.PROGRESSION],
+                  position_rules=[RuleType.PROGRESSION])
+R13a = Ruleset(size_rules=[RuleType.ARITHMETIC],
+                  shape_rules=[RuleType.DISTRIBUTE_THREE],
+                  color_rules=[RuleType.ARITHMETIC],
+                  number_rules=[RuleType.PROGRESSION],
+                  position_rules=[RuleType.PROGRESSION])
+
+
+
 rules3 = {'R9_xP_clD':R9d, 'R9_xP_clA':R9a,
           'R10_xD_clD':R10d, 'R10_xD_clA':R10a,
-          'R11_xA_clD':R11d, 'R11_xA_clA':R11a}
+          'R11_xA_clD':R11d, 'R11_xA_clA':R11a,
+          'R12_xP_szP_shD_clA':R12a,
+          'R13_xP_szA_sh_D_clA':R13a}
 
 # rules with number and position matching plus dist 3 size & shape
 
