@@ -242,45 +242,6 @@ rules3 = {'R9_xP_clD':R9d, 'R9_xP_clA':R9a,
 
 # rules with number and position matching plus dist 3 size & shape
 
-# just try with color constant first...
-
-
-
-######## ^^^^^are these okay...?
-
-
-
-
-#####
-# these rules are problematic, I think because you are trying to change
-# number and position independently (which doesn't work)
-# could try making them both the same rule?
-
-# R8_numD_rC = Ruleset(size_rules=[RuleType.CONSTANT],
-#                   shape_rules=[RuleType.CONSTANT],
-#                   color_rules=[RuleType.CONSTANT], # you have too many color options & not enough blocks for this too work
-#                   number_rules=[RuleType.DISTRIBUTE_THREE], # if you only do single stimulis this isn't an issue
-#                   position_rules=[RuleType.CONSTANT])
-#
-# R9_numA_rC = Ruleset(size_rules=[RuleType.CONSTANT],
-#                   shape_rules=[RuleType.CONSTANT],
-#                   color_rules=[RuleType.CONSTANT], # you have too many color options & not enough blocks for this too work
-#                   number_rules=[RuleType.ARITHMETIC], # if you only do single stimulis this isn't an issue
-#                   position_rules=[RuleType.CONSTANT])
-#
-# R10 = Ruleset(size_rules=[RuleType.CONSTANT],
-#                   shape_rules=[RuleType.CONSTANT],
-#                   color_rules=[RuleType.CONSTANT], # you have too many color options & not enough blocks for this too work
-#                   number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
-#                   position_rules=[RuleType.PROGRESSION])
-#
-# R11 = Ruleset(size_rules=[RuleType.CONSTANT],
-#                   shape_rules=[RuleType.CONSTANT],
-#                   color_rules=[RuleType.CONSTANT], # you have too many color options & not enough blocks for this too work
-#                   number_rules=[RuleType.CONSTANT], # if you only do single stimulis this isn't an issue
-#                   position_rules=[RuleType.DISTRIBUTE_THREE])
-
-
 
 
 ##### new rules
@@ -359,18 +320,23 @@ print("NUMBER" in str(rpm.rules.components_rules[0]))
 
 
 
+# Okay I made all the sims rules 1-6 in layout 1
+# I than made R7 & 8 in Layout 1
+# plus rules 7-13 in layout's 2 & 3
+
+# we decided that rules 4 & 5 would be good in layout's 2 & 3
+
+missed_rulesLAYOUTS23 = {'R4_szA_clA_rC':R4a, 'R5_shP_clA_rC':R5a}
+# we also noticed there is no rule that is shape progression & size progression
+# so I will do that with layout's 1,2 & 3
+
+R14a = Ruleset(size_rules=[RuleType.PROGRESSION],
+                  shape_rules=[RuleType.PROGRESSION],
+                  color_rules=[RuleType.ARITHMETIC],
+                  number_rules=[RuleType.CONSTANT],
+                  position_rules=[RuleType.CONSTANT])
 
 
-# TO DO before Sophie checks
-
-#layouts 2 & 3 in RULSE 4 & 5
-# new rules of shape progression & size progression color arth
-
-# also figure out illogical stuff & don't have her check them all
-
-
-
-# to do; try these all rules with color progression (makes no sense)
 
 # os.chdir('/Users/njudd/surfdrive/Shared/ravenStim/rpm_take2')
 
@@ -380,9 +346,11 @@ layout_list = {"L1":0, "L2":1,"L3":2}
 
 # rules = {}
 # rules = {**rules1, **rules2} #omfg python 3.5 ftw!!
+# rules = missed_rulesLAYOUTS23
+# rules = {'R14_szP_shP_clA_rC':R14a}
 
 # layout_list = {"L2":1,"L3":2}
-rules = rules2
+
 os.chdir("/Users/njudd/Desktop/temp/")
 for ll in range(len(layout_list)): # ll = layout loop index
     os.mkdir("Layout_" + list(layout_list)[ll])
