@@ -356,19 +356,33 @@ print("NUMBER" in str(rpm.rules.components_rules[0]))
 
 
 
+
+
+
+
+
+# TO DO before Sophie checks
+
+#layouts 2 & 3 in RULSE 4 & 5
+# new rules of shape progression & size progression color arth
+
+# also figure out illogical stuff & don't have her check them all
+
+
+
 # to do; try these all rules with color progression (makes no sense)
 
 # os.chdir('/Users/njudd/surfdrive/Shared/ravenStim/rpm_take2')
 
 
-# layout_list = {"L1":0, "L2":1,"L3":2}
+layout_list = {"L1":0, "L2":1,"L3":2}
 # layout_list = {"L1":0}
 
-rules = {}
-rules = {**rules1, **rules2} #omfg python 3.5 ftw!!
+# rules = {}
+# rules = {**rules1, **rules2} #omfg python 3.5 ftw!!
 
-layout_list = {"L2":1,"L3":2}
-rules = rules_2ndset
+# layout_list = {"L2":1,"L3":2}
+rules = rules2
 os.chdir("/Users/njudd/Desktop/temp/")
 for ll in range(len(layout_list)): # ll = layout loop index
     os.mkdir("Layout_" + list(layout_list)[ll])
