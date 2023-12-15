@@ -7,17 +7,20 @@ import numpy as np
 
 #raven_gen.attribute.SIZE_VALUES; #raven_gen.attribute.COLOR_VALUES
 
-raven_gen.attribute.SIZE_VALUES = (.3, .5, .7, .9) # maybe do 4? .25, .5, .75 1
+# raven_gen.attribute.SIZE_VALUES = (.3, .5, .7, .9) # maybe do 4? .25, .5, .75 1
+raven_gen.attribute.SIZE_VALUES = (.1, .4, .7, 1) # for layout 2 & 3 (4 stimuli)
 raven_gen.attribute.SIZE_MAX = 3 # need to tell it the length of the new vector when it changes
 
 
+
+
 ### Naming of stimuli
-# The ordering matters; this is for saving and not naming because Py doesn’t like the dot
 #
 # R = rule; P = Problem
 ## cl = color, sh = shape, sz = size, num = number, pos = position (all = all, r = rest)
 ### C = constant; P = progression; A = arithmetic; D = dist3
 #
+# the color is arithmetic (i.e., clA) this means color is noise
 # Example:
 # R4_aSZ_cR_P1_alternative2 (rule 1, arithmetic size, constant rest, Problem 1, Alternative 2)
 
@@ -74,12 +77,12 @@ R2 = Ruleset(size_rules=[RuleType.PROGRESSION], # R2_szP_rC
 R2d = Ruleset(size_rules=[RuleType.PROGRESSION], # R2_szP_rC
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.DISTRIBUTE_THREE],
-                  number_rules=[RuleType.DISTRIBUTE_THREE],
+                  number_rules=[RuleType.CONSTANT],
                   position_rules=[RuleType.CONSTANT])
 R2a = Ruleset(size_rules=[RuleType.PROGRESSION], # R2_szP_rC
                   shape_rules=[RuleType.CONSTANT],
                   color_rules=[RuleType.ARITHMETIC],
-                  number_rules=[RuleType.DISTRIBUTE_THREE],
+                  number_rules=[RuleType.CONSTANT],
                   position_rules=[RuleType.CONSTANT])
 
 R3 = Ruleset(size_rules=[RuleType.DISTRIBUTE_THREE], # R3_szD_rC
@@ -316,32 +319,32 @@ print("NUMBER" in str(rpm.rules.components_rules[0]))
 # raven_gen.attribute.UNI_MAX = len(raven_gen.attribute.UNI_VALUES) - 1
 
 
-
-
-
-
 # Okay I made all the sims rules 1-6 in layout 1
 # I than made R7 & 8 in Layout 1
 # plus rules 7-13 in layout's 2 & 3
 
-# we decided that rules 4 & 5 would be good in layout's 2 & 3
+# we decided that rules 1, 4 & 5 would be good in layout's 2 & 3
+# I decided that R2d, would be good & chanced the size attributes to reflect this
 
-missed_rulesLAYOUTS23 = {'R4_szA_clA_rC':R4a, 'R5_shP_clA_rC':R5a}
+missed_rulesLAYOUTS23 = {'R1_rC':R1, 'R1_clD_rC':R1d, 'R1_clA_rC':R1a,
+                         'R2_szP_clD_rC':R2d,
+                         'R4_szA_clA_rC':R4a,
+                         'R5_shP_clA_rC':R5a}
 # we also noticed there is no rule that is shape progression & size progression
 # so I will do that with layout's 1,2 & 3
 
-R14a = Ruleset(size_rules=[RuleType.PROGRESSION],
-                  shape_rules=[RuleType.PROGRESSION],
-                  color_rules=[RuleType.ARITHMETIC],
-                  number_rules=[RuleType.CONSTANT],
-                  position_rules=[RuleType.CONSTANT])
+# R14a = Ruleset(size_rules=[RuleType.PROGRESSION],
+#                   shape_rules=[RuleType.PROGRESSION],
+#                   color_rules=[RuleType.ARITHMETIC],
+#                   number_rules=[RuleType.CONSTANT],
+#                   position_rules=[RuleType.CONSTANT])
 
 
 
 # os.chdir('/Users/njudd/surfdrive/Shared/ravenStim/rpm_take2')
 
 
-layout_list = {"L1":0, "L2":1,"L3":2}
+# layout_list = {"L1":0, "L2":1,"L3":2}
 # layout_list = {"L1":0}
 
 # rules = {}
@@ -349,9 +352,11 @@ layout_list = {"L1":0, "L2":1,"L3":2}
 # rules = missed_rulesLAYOUTS23
 # rules = {'R14_szP_shP_clA_rC':R14a}
 
-# layout_list = {"L2":1,"L3":2}
+layout_list = {"L2":1,"L3":2}
 
-os.chdir("/Users/njudd/Desktop/temp/")
+rules = missed_rulesLAYOUTS23
+
+os.chdir("/Users/njudd/surfdrive/Shared/ravenStim/rpm_take2/")
 for ll in range(len(layout_list)): # ll = layout loop index
     os.mkdir("Layout_" + list(layout_list)[ll])
     os.chdir("Layout_" + list(layout_list)[ll])
@@ -372,7 +377,8 @@ for ll in range(len(layout_list)): # ll = layout loop index
                 pass
 
             if type(rpm) != str:
-                os.mkdir(loopname)  # making a dir for the rpm stuff
+                loopname = list(layout_list)[ll] + loopname
+                os.mkdir(loopname)  # making a dir for the rpm problem stuff
                 probname = (list(layout_list)[ll] + loopname)  # making the problem name start with the type of layout
                 rpm.save(loopname + "/.", probname)  # going in that dir, also naming the stimuli by the loopname
 
