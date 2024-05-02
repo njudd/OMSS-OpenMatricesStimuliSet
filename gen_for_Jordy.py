@@ -8,7 +8,7 @@ import numpy as np
 #raven_gen.attribute.SIZE_VALUES; #raven_gen.attribute.COLOR_VALUES
 
 # raven_gen.attribute.SIZE_VALUES = (.3, .5, .7, .9) # maybe do 4? .25, .5, .75 1
-raven_gen.attribute.SIZE_VALUES = (.1, .4, .7, 1) # for layout 2 & 3 (4 stimuli)
+raven_gen.attribute.SIZE_VALUES = (.20, .45, .70, .95) # for layout 2 & 3 (4 stimuli)
 raven_gen.attribute.SIZE_MAX = 3 # need to tell it the length of the new vector when it changes
 
 
@@ -251,8 +251,6 @@ rules3 = {'R9_xP_clD':R9d, 'R9_xP_clA':R9a,
 # not sure if these are good
 # SEE NOTES!!!
 
-
-
 ruleset_13_mix_numArith_shapeProg = Ruleset(number_rules=[RuleType.ARITHMETIC],
                                              shape_rules=[RuleType.PROGRESSION])
 
@@ -357,6 +355,8 @@ layout_list = {"L2":1,"L3":2}
 rules = missed_rulesLAYOUTS23
 
 os.chdir("/Users/njudd/surfdrive/Shared/ravenStim/rpm_take2/")
+
+os.chdir("/Users/njudd/Desktop/temp")
 for ll in range(len(layout_list)): # ll = layout loop index
     os.mkdir("Layout_" + list(layout_list)[ll])
     os.chdir("Layout_" + list(layout_list)[ll])
@@ -365,7 +365,7 @@ for ll in range(len(layout_list)): # ll = layout loop index
         os.mkdir("rpm" + list(rules)[w])
         os.chdir("rpm" + list(rules)[w])
         # now make a certian number of problems
-        stim_tries = 10
+        stim_tries = 20
         while stim_tries != 0:
             loopname = ("rpm" + list(rules)[w])
             loopname += ("_P" + str(stim_tries))  # plus one to get rid of Python indexing
@@ -379,7 +379,7 @@ for ll in range(len(layout_list)): # ll = layout loop index
             if type(rpm) != str:
                 loopname = list(layout_list)[ll] + loopname
                 os.mkdir(loopname)  # making a dir for the rpm problem stuff
-                probname = (list(layout_list)[ll] + loopname)  # making the problem name start with the type of layout
+                probname = loopname  # making the problem name start with the type of layout
                 rpm.save(loopname + "/.", probname)  # going in that dir, also naming the stimuli by the loopname
 
                 with open(loopname + "/" + probname + "_output.txt",
